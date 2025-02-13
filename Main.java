@@ -1,4 +1,5 @@
 package Practica2;
+import Practica2.clase.Clase_bocatas;
 import Practica2.clase.Clase_user;
 
 import java.time.LocalDate;
@@ -24,10 +25,17 @@ public class Main {
         //Arrays clases
 
         ArrayList<Clase_user> usuarios = new ArrayList<>();
+        ArrayList<Clase_bocatas> bocatas = new ArrayList<>();
 
         //USUARIO ADMIN
 
         usuarios.add(new Clase_user("admin","admin", "admin@gmail.com", "admin", "Admin_1", new ArrayList<>(), LocalDate.of(2006,03,29), 1));
+
+        //BOCATAS
+        String[] ingredientes = {"Pan fresco", "Salchichón de alta calidad"};
+        String[] alergenos = {"Gluten", "Lácteos"};
+
+         bocatas.add(new Clase_bocatas(1, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50));
 
         //ELECCIÓN
 
@@ -93,11 +101,11 @@ public class Main {
 
                         switch (elec) {
                             case "1":
-                                Validaciones.listarbocadillos();
+                                Validaciones.listarbocadillos(bocatas);
                                 next = true;
                                 break;
                             case "2":
-                                Validaciones.curiosidaBocata();
+                                Validaciones.curiosidaBocata(bocatas);
                                 next = true;
                                 break;
                             case "3":

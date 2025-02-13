@@ -1,5 +1,6 @@
 package Practica2;
 
+import Practica2.clase.Clase_bocatas;
 import Practica2.clase.Clase_user;
 
 import java.time.LocalDate;
@@ -763,11 +764,35 @@ public class Validaciones {
 
     //2.1 Listar bocadillos disponibles
 
-    public static void listarbocadillos(){
-
+    public static void listarbocadillos(ArrayList<Clase_bocatas> bocatas){
+        if (bocatas.isEmpty()) {
+            System.out.println("No hay bocatas registrados.");
+        } else {
+            System.out.println("\n--- LISTA DE bocatas ---");
+            for (Clase_bocatas bocata : bocatas) {
+                bocata.mostrarinfo();
+            }
+        }
     }
 
-    public static void curiosidaBocata(){
+    public static boolean buscarbocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
+        for (Clase_bocatas bocata : bocatas) {
+            bocata.mostrarCuriosidades();
+            return true;
+        }
+        return false;
+    }
 
+    public static void curiosidaBocata(ArrayList<Clase_bocatas> bocatas){
+        Scanner sc=new Scanner(System.in);
+        String elec = "";
+        System.out.println("¿Cual es el bocata que te entra curiosidad saber su curiosidad?");
+         elec = sc.nextLine();
+
+        if (buscarbocata(bocatas, elec)) {
+
+        } else {
+            System.out.println("El bocata no ha sido encontrado");
+        }
     }
 }

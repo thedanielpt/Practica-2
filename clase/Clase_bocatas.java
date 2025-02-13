@@ -18,12 +18,12 @@ public class Clase_bocatas {
         this.precio=precio;
     }
 
-    public void mostrarCuriosidades(int id,String nombre, String descrip, String [] ingredientes, String[] alergenos, String ciudadpopular, double precio){
+    public void mostrarCuriosidades(){
         this.nombre=nombre;
         this.ingredientes=ingredientes;
         this.ciudadpopular=ciudadpopular;
 
-        System.out.println("Sabes que el "+nombre+" es popular en " +ciudadpopular+ "porque en los momentos ificiles al haber pocos recursos se hacia este bocata");
+        System.out.println("Sabes que el "+nombre+" es popular en " +ciudadpopular+ " porque en los momentos dificiles al haber pocos recursos se hacia este bocata");
     }
 
     public void mostrarAlergenos(String nombre,String[] alergenos){
@@ -43,6 +43,20 @@ public class Clase_bocatas {
         for (int i = 0; i < ingredientes.length; i++) {
             System.out.println(ingredientes[i]);
         }
+    }
+
+    public void mostrarinfo(){
+        this.id=id;
+        this.nombre=nombre;
+        this.descrip=descrip;
+        this.ingredientes=ingredientes;
+        this.alergenos=alergenos;
+        this.ciudadpopular=ciudadpopular;
+        this.precio=precio;
+
+        System.out.println("\n----------------");
+        System.out.println("Id bocata: "+id+ "\nNombre del bocata: "+nombre+"\nDescripción del bocata: "+descrip+"\nIngredientes del bocata: "+ingredientes+"\nAlergenos del bocata: "+alergenos+"\nCiudad popular del bocata: "+ciudadpopular+"\nPrecio del bocata: "+precio);
+        System.out.println("\n----------------");
     }
 
     public int getId() {
