@@ -758,4 +758,16 @@ public class Validaciones {
         usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena,alergias_user,fecha_nacimiento, rol));
 
     }
+
+    //2. Gestionar Bocadillos
+
+    //2.1 Listar bocadillos disponibles
+
+    public static void listarbocadillos(){
+
+    }
+
+    public static void curiosidaBocata(){
+
+    }
 }

@@ -64,6 +64,7 @@ public class Main {
                         System.out.println("2. Añadir nuevo usuario");
                         System.out.println("3. Volver al menu princiapal");
                         elec = sc.nextLine();
+
                         switch (elec) {
                             case "1":
                                 Validaciones.listarUsuarios(usuarios);
@@ -83,7 +84,28 @@ public class Main {
                                 break;
                         }
                     } while (next);
-                }
+                case "2":
+                    do {
+                        System.out.println("1. Listar bocadillos disponibles");
+                        System.out.println("2. Ver curiosidades de un bocadillo");
+                        System.out.println("3. Volver al menu princiapal");
+                        elec = sc.nextLine();
+
+                        switch (elec) {
+                            case "1":
+                                Validaciones.listarbocadillos();
+                                next = true;
+                                break;
+                            case "2":
+                                Validaciones.curiosidaBocata();
+                                next = true;
+                                break;
+                            case "3":
+                                next = false;
+                                break;
+                        }
+                    }while (next);
+            }
             next = true;
 
         } while (next);
