@@ -1,6 +1,7 @@
 package Practica2;
 import Practica2.clase.Clase_user;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,11 +21,13 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        //VARIABLES
-
         //Arrays clases
 
         ArrayList<Clase_user> usuarios = new ArrayList<>();
+
+        //USUARIO ADMIN
+
+        usuarios.add(new Clase_user("admin","admin", "admin@gmail.com", "admin", "Admin_1", new ArrayList<>(), LocalDate.of(2006,03,29), 1));
 
         //ELECCIÓN
 

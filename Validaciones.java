@@ -13,6 +13,16 @@ public class Validaciones {
 
     //VALIDACIONES
 
+    private static String contrasenaAdmin(ArrayList<Clase_user> claseUsers, String nombreUsuario){
+        for (int i = 0; i < claseUsers.size(); i++) {
+            Clase_user usuario = claseUsers.get(i);
+            if (usuario.getUsuario().equalsIgnoreCase(nombreUsuario) && usuario.getRol() == 1) {
+                return usuario.getPassword();
+            }
+        }
+        return null;
+    }
+
     /**
      * Comprueba aquí que tengas caracteres antes del arroba, que el ultimo punto que pongas no este detras
      * del arroba, que en medio del punto y arroba alla un caracter y que el punto tenga delante un caracter
@@ -241,7 +251,7 @@ public class Validaciones {
      *@return curso variable String
      */
 
-    public static String cursoUsuario(){
+    public static String cursoUsuario(ArrayList<Clase_user> usuarios){
         Scanner sc= new Scanner(System.in);
         String elec = "";
         String curso = "";
@@ -348,28 +358,41 @@ public class Validaciones {
                                 next = false;
                                 break;
                             case "2":
-                                do {
-                                    System.out.println("¿Estas seguro?");
-                                    System.out.println("SI");
-                                    System.out.println("NO");
-                                    elec = sc.nextLine();
+                                System.out.println("Pon la contraseña del administrador");
+                                elec = sc.nextLine();
+                                for (int i = 3; i > 0; i--) {
+                                    if (elec.equals(contrasenaAdmin(usuarios, "admin"))) {
+                                        do {
+                                            System.out.println("¿Estas seguro?");
+                                            System.out.println("SI");
+                                            System.out.println("NO");
+                                            elec = sc.nextLine();
 
-                                    switch (elec) {
-                                        case "SI":
-                                            curso = "admin";
-                                            next = false;
-                                            admin = false;
-                                            break;
-                                        case "NO":
-                                            next = true;
-                                            admin = false;
-                                            break;
-                                        default:
-                                            System.out.println("Tienes que seleccionar una de las dos opciones");
-                                            admin = true;
-                                            break;
+                                            switch (elec) {
+                                                case "SI":
+                                                    curso = "admin";
+                                                    return curso;
+                                                case "NO":
+                                                    next = true;
+                                                    admin = false;
+                                                    i = 0;
+                                                    break;
+                                                default:
+                                                    System.out.println("Tienes que seleccionar una de las dos opciones");
+                                                    admin = true;
+                                                    break;
+                                            }
+                                        }while (admin);
+                                    } else if (i == 0){
+                                        System.out.println("Numero de intentos maximo");
+                                        break;
+                                    } else {
+                                        System.out.println("Contraseña incorrecta, te quedan "+ i +" intentos");
+                                        System.out.println("Vuelve a intentarlo");
+                                        elec = sc.nextLine();
                                     }
-                                }while (admin);
+
+                                }
                             case "3":
                                 next = false;
                                 break;
@@ -501,6 +524,11 @@ public class Validaciones {
 
     //ALERGIAS
 
+    /**
+     * Esta Validación lo que hace es pedir las alergias que tiene el usuario
+     * @return Devuelve las alergias qeu tiene el usuario
+     */
+
     public static ArrayList<String> alergiasUsuario(){
         Scanner sc = new Scanner(System.in);
         boolean next = true;
@@ -611,6 +639,8 @@ public class Validaciones {
      */
 
     public static void agregarUsuarios(ArrayList<Clase_user> usuarios){
+        ArrayList<Clase_user> usuario = new ArrayList<>();
+
         //Nombre y apellidos del usuario
 
         //String nombre = nombreApellidos();
@@ -625,7 +655,7 @@ public class Validaciones {
 
         //Curso de usuario
 
-        //String curso = cursoUsuario();
+        String curso = cursoUsuario(usuarios);
 
         //Contraseña de usuario
 
@@ -637,6 +667,10 @@ public class Validaciones {
 
         //Fecha de usuario
 
-        LocalDate fecha_nacimiento = validarFecha();
+        //LocalDate fecha_nacimiento = validarFecha();
+
+        int rol;
+
+
     }
 }

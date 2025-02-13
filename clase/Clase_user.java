@@ -1,5 +1,6 @@
 package Practica2.clase;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -13,12 +14,13 @@ public class Clase_user {
     private LocalDate fecha_nacimiento;
     private int rol;
 
-    public Clase_user(String usuario, String nombre, String correo, String curso, String password, ArrayList alergias, int rol) {
+    public Clase_user(String usuario, String nombre, String correo, String curso, String password, ArrayList alergias, LocalDate fecha_nacimiento, int rol) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.correo = correo;
         this.curso = curso;
         this.password = password;
+        this.fecha_nacimiento=fecha_nacimiento;
         this.alergias = alergias;
         this.rol=rol;
     }
@@ -33,7 +35,9 @@ public class Clase_user {
         this.fecha_nacimiento = fecha_nacimiento;
         this.rol = rol;
 
+        System.out.println("\n----------------");
         System.out.println("Nombre de user = " + usuario + "\nNombre del alumno = " + nombre + "\nCorreo electrónico = " + correo + "\nCurso = " + curso + "\npassword = " + password + "\nTienes alergia = " + alergias + "\nFecha de nacimiento = " + fecha_nacimiento + "\nRol = " + rol);
+        System.out.println("\n----------------");
     }
 
     public String getUsuario() {
