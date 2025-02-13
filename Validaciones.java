@@ -91,6 +91,25 @@ public class Validaciones {
     }
 
     /**
+     * Comprueba que solo sean numeros
+     * @param num La cadena que se quiere comprobar si solo son numeros
+     * @return boolean Si todos son numeros te devolvera true en caso contrario te devolvera false
+     */
+    public static boolean soloNum(String num){
+        int cuenta = 0;
+        for (int i = 0; i < num.length(); i++) {
+            if (num.charAt(i) >= '0' && num.charAt(i) <= '9'){
+                cuenta++;
+            }
+        }
+        if (cuenta == num.length()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Comprueba si hay espacios, si hay algun espacio te devuelve true
      * @param cadena Cadena para comprobar si hay espacios
      * @return boolean Si hay espacios te devolvera true, si no te devolvera false
@@ -502,7 +521,87 @@ public class Validaciones {
     //Fecha
 
     public static LocalDate validarFecha(){
+        Scanner sc = new Scanner(System.in);
         LocalDate fecha = null;
+        LocalDate hoy = LocalDate.now();
+        int anoActual = hoy.getYear();
+
+        String selec = "";
+        int anoU = 0;
+        int mesU = 0;
+        int diaU = 0;
+        boolean next = true;
+        //AÑO
+
+        do {
+            System.out.println("Pon tu año de nacimiento");
+            selec = sc.nextLine();
+
+            if (Validaciones.soloNum(selec)){
+                anoU = Integer.parseInt(selec);
+                if (anoU < 1950 || anoU > anoActual) {
+                    System.out.println("Año no valido");
+                    next = true;
+                } else {
+                    System.out.println("Tu año es = "+anoU);
+                    next = false;
+                }
+            } else {
+                System.out.println("Tiene que ser solo números");
+                next = true;
+            }
+        } while (next);
+
+        //MES
+
+        do {
+            System.out.println("Pon tu mes de nacimiento");
+            selec = sc.nextLine();
+
+            if (Validaciones.soloNum(selec)){
+                mesU = Integer.parseInt(selec);
+                if (mesU < 1 || 12 < mesU ) {
+                    System.out.println("mes no valido");
+                    next = true;
+                } else {
+                    System.out.println("Tu mes es = "+mesU);
+                    next = false;
+                }
+            } else {
+                System.out.println("Tiene que ser solo números");
+                next = true;
+            }
+        } while (next);
+
+        //Esto sirve para saber la longitud del mes.
+        //Primero ponemos los valores del año y el mes en fecha
+        fecha = LocalDate.of(anoU,mesU,1);
+
+        //Ahora se le pide que diga la longitud del mes
+        int longitudMesActual = fecha.lengthOfMonth();
+
+        //DÍA
+
+        do {
+            System.out.println("Pon tu día de nacimiento");
+            selec = sc.nextLine();
+
+            if (Validaciones.soloNum(selec)){
+                diaU = Integer.parseInt(selec);
+                if (diaU < 1 || diaU > longitudMesActual) {
+                    System.out.println("Día no valido");
+                    next = true;
+                } else {
+                    System.out.println("Tu día es = "+diaU);
+                    next = false;
+                }
+            } else {
+                System.out.println("Tiene que ser solo números");
+                next = true;
+            }
+        } while (next);
+        fecha = LocalDate.of(anoU, mesU,diaU);
+        System.out.println(fecha);
         return fecha;
     }
 
@@ -526,7 +625,7 @@ public class Validaciones {
 
         //Curso de usuario
 
-        String curso = cursoUsuario();
+        //String curso = cursoUsuario();
 
         //Contraseña de usuario
 
@@ -538,6 +637,6 @@ public class Validaciones {
 
         //Fecha de usuario
 
-        LocalDate fecha_nacimiento;
+        LocalDate fecha_nacimiento = validarFecha();
     }
 }
