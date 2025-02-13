@@ -2,16 +2,77 @@ package Practica2;
 
 import Practica2.clase.Clase_user;
 
-import java.lang.annotation.ElementType;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Validaciones {
 
     //VALIDACIONES
+
+    public static String rolAdmin(String curso){
+        if (curso.equalsIgnoreCase("Admin")) {
+            return "Admin";
+        }
+        return null;
+    }
+
+    /**
+     * Comprueba si el curso que esta buscando es este
+     * @param curso el curso que se comprueba
+     * @return Devuelve nulo si no es trabajo
+     */
+
+    public static String rolCocina(String curso){
+        if (curso.equalsIgnoreCase("Conina")) {
+            return "Conina";
+        }
+        return null;
+    }
+
+    /**
+     * Devuelve trabajador si es un usuario de trabajador
+     * @param curso el curso que se comprueba
+     * @return si el curos es eso o no
+     */
+
+    public static String rolTrabajadores(String curso){
+        if (curso.equalsIgnoreCase("Trabajador")) {
+            return "Trabajador";
+        }
+        return null;
+    }
+
+    /**
+     * Sirve para ver is eres un alumno.
+     * @param curo para ver que tipo de curso es
+     * @return devuelve el tl numero del rol que eres
+     */
+
+    public static String rolEsoGm(String curo){
+        String[] ESO = {"1ªESO","2ªESO","3ªESO","4ªESO"};
+        String[] GM = {"1ºAño GM Informatica", "2ºAño GM Informatica", "1ºAño GM Jardinería", "2ºAño GM Jardinería"};
+
+        for (int i = 0; i < ESO.length; i++) {
+            if (curo.equalsIgnoreCase(ESO[i])) {
+                return ESO[i];
+            }
+        }
+
+        for (int i = 0; i < GM.length; i++) {
+            if (curo.equalsIgnoreCase(GM[i])) {
+                return GM[i];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Lo que hace este método es devolver la contraseña del admin sin comprometer su seguridad
+     * @param claseUsers
+     * @param nombreUsuario
+     * @return La contraseña del usuario de administracióm
+     */
 
     private static String contrasenaAdmin(ArrayList<Clase_user> claseUsers, String nombreUsuario){
         for (int i = 0; i < claseUsers.size(); i++) {
@@ -347,8 +408,9 @@ public class Validaciones {
                 case "3":
 
                     do {
-                        System.out.println("1. Soy trabajador del instituto");
-                        System.out.println("2. Quiero crear un admin");
+                        System.out.println("1. Crear Profesor, director, etc.");
+                        System.out.println("2. Crear un admin");
+                        System.out.println("3. Crear cociner@");
                         System.out.println("3. No es lo que quería seleccionar");
                         elec = sc.nextLine();
 
@@ -370,7 +432,7 @@ public class Validaciones {
 
                                             switch (elec) {
                                                 case "SI":
-                                                    curso = "admin";
+                                                    curso = "Admin";
                                                     return curso;
                                                 case "NO":
                                                     next = true;
@@ -394,6 +456,10 @@ public class Validaciones {
 
                                 }
                             case "3":
+                                curso = "Conina";
+                                next = false;
+                                break;
+                            case "4":
                                 next = false;
                                 break;
                         }
@@ -548,6 +614,11 @@ public class Validaciones {
 
     //Fecha
 
+    /**
+     * Este metodo devuelve la fecha del usuario que se halla
+     * @return Fecha de usuario
+     */
+
     public static LocalDate validarFecha(){
         Scanner sc = new Scanner(System.in);
         LocalDate fecha = null;
@@ -633,6 +704,18 @@ public class Validaciones {
         return fecha;
     }
 
+    public static int rolUsuario(String curso) {
+        int rol = 0;
+        if (curso.equalsIgnoreCase(rolEsoGm(curso)) || curso.equalsIgnoreCase(rolTrabajadores(curso))) {
+            return rol = 3;
+        } else if (curso.equalsIgnoreCase(rolCocina(curso))) {
+            return rol = 2;
+        } else if (curso.equalsIgnoreCase(rolAdmin(curso))) {
+            return rol = 1;
+        }
+        return 0;
+    }
+
     /**
      * Sirve para crear a los usuarios
      * @param usuarios es el listado de usuarios
@@ -669,8 +752,8 @@ public class Validaciones {
 
         //LocalDate fecha_nacimiento = validarFecha();
 
-        int rol;
-
+        int rol = rolUsuario(curso);
+        System.out.println(rol);
 
     }
 }
