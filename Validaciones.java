@@ -600,7 +600,7 @@ public class Validaciones {
         boolean next = true;
         ArrayList<String> alergias = new ArrayList<String>();
 
-        System.out.println("ingrese sus lergias, cuando las pongas todas pon terminado");
+        System.out.println("Ingrese sus lergias, cuando las pongas todas pon terminado");
 
         while (next) {
             String alergia = sc.nextLine();
@@ -722,19 +722,18 @@ public class Validaciones {
      */
 
     public static void agregarUsuarios(ArrayList<Clase_user> usuarios){
-        ArrayList<Clase_user> usuario = new ArrayList<>();
 
         //Nombre y apellidos del usuario
 
-        //String nombre = nombreApellidos();
+        String nombre = nombreApellidos();
 
         //Nombre de usuario
 
-        //String usuario = validarUsuario();
+        String usuario = validarUsuario();
 
         //Correo de usuario
 
-        //String correo = validarGmail();
+        String correo = validarGmail();
 
         //Curso de usuario
 
@@ -742,18 +741,21 @@ public class Validaciones {
 
         //Contraseña de usuario
 
-        //String contrasena = validarContrasena();
+        String contrasena = validarContrasena();
 
         //Alergias
 
-        //ArrayList<String> alergias_user = alergiasUsuario();
+        ArrayList<String> alergias_user = alergiasUsuario();
 
         //Fecha de usuario
 
-        //LocalDate fecha_nacimiento = validarFecha();
+        LocalDate fecha_nacimiento = validarFecha();
+
+        //ROL
 
         int rol = rolUsuario(curso);
-        System.out.println(rol);
+
+        usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena,alergias_user,fecha_nacimiento, rol));
 
     }
 }
