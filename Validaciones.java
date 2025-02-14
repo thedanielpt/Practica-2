@@ -69,6 +69,41 @@ public class Validaciones {
     }
 
     /**
+     * El captcha esta hecho para sumar dos numeros creados por Math.random
+     * @return boolean Si el usuario no hacierta la suma que se genera, pondra falso, caso contrario sera verdadero
+     */
+    public static boolean captcha () {
+        Scanner scan = new Scanner(System.in);
+        int num2 = (int) (Math.random() * 10);
+        int num1 = (int) (Math.random() * 10);
+        String respuesta;
+        int respuestaPreg;
+        int resultado;
+        System.out.println("Haz esta suma");
+        System.out.println(num1 + " + " + num2);
+        for (int i = 0; i < 3; i++) {
+            respuesta = scan.nextLine();
+            //Comprueba si solo son numeros
+            if (soloNum(respuesta)) {
+                respuestaPreg = Integer.parseInt(respuesta);
+                resultado = num1 + num2;
+                //Comprueba si la respuesta puesta es igual al resultado, haciendo de que te saque de la funcion con un true
+                if (respuestaPreg == resultado) {
+                    return true;
+                    //Si lo has intentado 3 veces te devuelve false
+                } else if (i == 2) {
+                    return false;
+                } else {
+                    System.out.println("Vuelve a intentarlo");
+                }
+            } else {
+                System.out.println("Vuelve a intenarlo");
+            }
+        }
+        return false;
+    }
+
+    /**
      * Lo que hace este método es devolver la contraseña del admin sin comprometer su seguridad
      * @param claseUsers
      * @param nombreUsuario
@@ -253,6 +288,61 @@ public class Validaciones {
     }
 
     //1. Gestión de usuario
+
+    /**
+     * Login
+     * @param nameUsers
+     * @return true si el usuario se h alogueado correctamente y devuelve false en caso contrario
+     */
+
+    public static boolean login(ArrayList<Clase_user> nameUsers){
+
+        Scanner sc = new Scanner(System.in);
+        String nameL = "";
+        String contraL = "";
+        boolean logueo = false;
+        boolean next = false;
+        int cuenta = -1;
+
+        do {
+            //Comprobacion de si estas registrado
+            if (Validaciones.captcha()){
+                for (int i = 0; i < 3; i++) {
+                    System.out.println("Pon el nombre de usuario de un administrador");
+                    nameL = sc.nextLine();
+                    //Recorre todo el array para ver si existe el usuario
+                    for (Clase_user usuario : nameUsers) {
+                        if (nameL.equals(usuario.getUsuario())) {
+                            if (usuario.getRol() == 1) {
+                                for (int j = 3; j > 0; j--) {
+                                    System.out.println("Pon la contraseña");
+                                    contraL = sc.nextLine();
+
+                                    if (contraL.equals(usuario.getPassword())) {
+                                        System.out.println("te has logueado +"+ usuario.getUsuario());
+                                        return true;
+                                    } else if (j == 2) {
+                                        System.out.println("Numero de intentos sobrepasados");
+                                        return false;
+                                    } else {
+                                        System.out.println("Te quedan estos intentos = "+j);
+                                    }
+                                }
+                            } else {
+                                System.out.println("usuario no valido");
+                                return false;
+                            }
+                        }
+                    }
+                    //Comprueba si nameL es igual a nameUser
+                }
+            } else {
+                System.out.println("Se cancelo el login");
+                return false;
+            }
+        } while (next);
+        return false;
+    }
 
     //1.1 Listar usuarios
 
