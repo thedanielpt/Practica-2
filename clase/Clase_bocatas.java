@@ -10,6 +10,7 @@ public class Clase_bocatas {
     private double precio;
 
     public Clase_bocatas (int id,String nombre, String descrip, String [] ingredientes, String[] alergenos, String ciudadpopular, double precio){
+        this.id=id;
         this.nombre=nombre;
         this.descrip=descrip;
         this.ingredientes=ingredientes;
