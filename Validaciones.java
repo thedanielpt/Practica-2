@@ -804,4 +804,12 @@ public class Validaciones {
             System.out.println("El bocata no ha sido encontrado");
         }
     }
+
+    //3 REALIZAR PEDIDO
+
+    //3.1 SELECCIONAR USUARIO
+
+    public static void seleccionUser(ArrayList<Clase_user> usuarios){
+
+    }
 }

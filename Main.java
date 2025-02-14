@@ -31,6 +31,45 @@ public class Main {
 
         usuarios.add(new Clase_user("admin","admin", "admin@gmail.com", "admin", "Admin_1", new ArrayList<>(), LocalDate.of(2006,03,29), 1));
 
+        //USUARIOS ESO
+
+        usuarios.add(new Clase_user("user1_4ESO", "Carlos Pérez", "carlos4eso@email.com", "4ºESO", "Pass_1", new ArrayList<>(), LocalDate.of(2009, 5, 14), 1));
+        usuarios.add(new Clase_user("user2_4ESO", "Marta López", "marta4eso@email.com", "4ºESO", "Pass_2", new ArrayList<>(), LocalDate.of(2009, 8, 22), 1));
+
+        usuarios.add(new Clase_user("user1_3ESO", "Luis Gómez", "luis3eso@email.com", "3ºESO", "Pass_3", new ArrayList<>(), LocalDate.of(2010, 3, 10), 2));
+        usuarios.add(new Clase_user("user2_3ESO", "Ana Ramírez", "ana3eso@email.com", "3ºESO", "Pass_4", new ArrayList<>(), LocalDate.of(2010, 11, 5), 2));
+
+        usuarios.add(new Clase_user("user1_2ESO", "Pedro Fernández", "pedro2eso@email.com", "2ºESO", "Pass_5", new ArrayList<>(), LocalDate.of(2011, 7, 19), 3));
+        usuarios.add(new Clase_user("user2_2ESO", "Lucía Sánchez", "lucia2eso@email.com", "2ºESO", "Pass_6", new ArrayList<>(), LocalDate.of(2011, 2, 25), 3));
+
+        usuarios.add(new Clase_user("user1_1ESO", "Daniel Ruiz", "daniel1eso@email.com", "1ºESO", "Pass_7", new ArrayList<>(), LocalDate.of(2012, 9, 30), 4));
+        usuarios.add(new Clase_user("user2_1ESO", "Sara Torres", "sara1eso@email.com", "1ºESO", "Pass_8", new ArrayList<>(), LocalDate.of(2012, 6, 18), 4));
+
+        //USUARIOS GRADO MEDIO
+
+        usuarios.add(new Clase_user("user1_GMInfo1", "Javier Ortega", "javierinfo1@email.com", "1ºAño GM Informática", "Pass_9", new ArrayList<>(), LocalDate.of(2007, 12, 1), 5));
+        usuarios.add(new Clase_user("user2_GMInfo1", "Laura Medina", "laurainfo1@email.com", "1ºAño GM Informática", "Pass_10", new ArrayList<>(), LocalDate.of(2007, 4, 15), 5));
+
+        usuarios.add(new Clase_user("user1_GMInfo2", "Manuel Castillo", "manuelinfo2@email.com", "2ºAño GM Informática", "Pass_11", new ArrayList<>(), LocalDate.of(2006, 8, 27), 6));
+        usuarios.add(new Clase_user("user2_GMInfo2", "Paula Reyes", "paulainfo2@email.com", "2ºAño GM Informática", "Pass_12", new ArrayList<>(), LocalDate.of(2006, 11, 3), 6));
+
+        usuarios.add(new Clase_user("user1_GMJard1", "Sergio Márquez", "sergiojard1@email.com", "1ºAño GM Jardinería", "Pass_13", new ArrayList<>(), LocalDate.of(2007, 1, 9), 7));
+        usuarios.add(new Clase_user("user2_GMJard1", "Elena Navarro", "elenajard1@email.com", "1ºAño GM Jardinería", "Pass_14", new ArrayList<>(), LocalDate.of(2007, 5, 22), 7));
+
+        usuarios.add(new Clase_user("user1_GMJard2", "Iván Herrera", "ivanjard2@email.com", "2ºAño GM Jardinería", "Pass_15", new ArrayList<>(), LocalDate.of(2006, 10, 6), 8));
+        usuarios.add(new Clase_user("user2_GMJard2", "Natalia Rojas", "nataliajard2@email.com", "2ºAño GM Jardinería", "Pass_16", new ArrayList<>(), LocalDate.of(2006, 2, 14), 8));
+
+
+        //USUARIOS TRABAJADOR
+
+        usuarios.add(new Clase_user("user1_Trabajador", "Fernando Gutiérrez", "fernandotrabajo@email.com", "Trabajador", "Pass_17", new ArrayList<>(), LocalDate.of(1985, 7, 25), 9));
+        usuarios.add(new Clase_user("user2_Trabajador", "Andrea Suárez", "andreatrabajo@email.com", "Trabajador", "Pass_18", new ArrayList<>(), LocalDate.of(1990, 12, 13), 9));
+
+        //USUARIOS COCINA
+
+        usuarios.add(new Clase_user("user1_Cocina", "Raúl Montes", "raulcocina@email.com", "Cocina", "Pass_19", new ArrayList<>(), LocalDate.of(1982, 3, 8), 10));
+        usuarios.add(new Clase_user("user2_Cocina", "Isabel Domínguez", "isabelcocina@email.com", "Cocina", "Pass_20", new ArrayList<>(), LocalDate.of(1987, 9, 30), 10));
+
         //BOCATAS
         String[] ingredientes = {"Pan fresco", "Salchichón de alta calidad"};
         String[] alergenos = {"Gluten", "Lácteos"};
@@ -41,6 +80,11 @@ public class Main {
         //ELECCIÓN
 
         String elec = "";
+
+        //USUARIO REGISTRADO
+
+        String usuario = "";
+        String contrasena = "";
 
         //SEGUIR
 
@@ -112,7 +156,24 @@ public class Main {
                             case "3":
                                 next = false;
                                 break;
+                            default:
+                                System.out.println("Tienes que elegir una de las opciones");
+                                next = true;
+                                break;
                         }
+                    }while (next);
+                case "3":
+                    do {
+                        System.out.println("Seleccionar usuario");
+                        System.out.println("Elegir bocadillo");
+                        System.out.println("Confirmar pedido");
+                        elec = sc.nextLine();
+
+                        switch (elec) {
+                            case "1":
+
+                        }
+
                     }while (next);
             }
             next = true;
