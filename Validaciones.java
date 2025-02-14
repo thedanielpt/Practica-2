@@ -777,20 +777,29 @@ public class Validaciones {
 
     public static boolean buscarbocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
         for (Clase_bocatas bocata : bocatas) {
-            bocata.mostrarCuriosidades();
-            return true;
+            if (nombreBocata.equalsIgnoreCase(bocata.getNombre())) {
+                return true;
+            }
         }
         return false;
     }
 
-    public static void curiosidaBocata(ArrayList<Clase_bocatas> bocatas){
+    public static void dameCuriosidadBocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
+        for (Clase_bocatas bocata : bocatas) {
+            if (nombreBocata.equalsIgnoreCase(bocata.getNombre())) {
+                bocata.mostrarCuriosidades();
+            }
+        }
+    }
+
+    public static void verCuriosidaBocata(ArrayList<Clase_bocatas> bocatas){
         Scanner sc=new Scanner(System.in);
         String elec = "";
         System.out.println("¿Cual es el bocata que te entra curiosidad saber su curiosidad?");
          elec = sc.nextLine();
 
         if (buscarbocata(bocatas, elec)) {
-
+            dameCuriosidadBocata(bocatas, elec);
         } else {
             System.out.println("El bocata no ha sido encontrado");
         }

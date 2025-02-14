@@ -54,7 +54,7 @@ public class Clase_bocatas {
         this.ciudadpopular=ciudadpopular;
         this.precio=precio;
 
-        System.out.println("\n----------------");
+        System.out.println("----------------\n");
         System.out.println("Id bocata: "+id+ "\nNombre del bocata: "+nombre+"\nDescripción del bocata: "+descrip+"\nIngredientes del bocata: "+ingredientes+"\nAlergenos del bocata: "+alergenos+"\nCiudad popular del bocata: "+ciudadpopular+"\nPrecio del bocata: "+precio);
         System.out.println("\n----------------");
     }

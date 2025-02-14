@@ -35,7 +35,8 @@ public class Main {
         String[] ingredientes = {"Pan fresco", "Salchichón de alta calidad"};
         String[] alergenos = {"Gluten", "Lácteos"};
 
-         bocatas.add(new Clase_bocatas(1, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50));
+        bocatas.add(new Clase_bocatas(1, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50));
+        bocatas.add(new Clase_bocatas(2, "Bocadillo de Merluza", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50));
 
         //ELECCIÓN
 
@@ -105,7 +106,7 @@ public class Main {
                                 next = true;
                                 break;
                             case "2":
-                                Validaciones.curiosidaBocata(bocatas);
+                                Validaciones.verCuriosidaBocata(bocatas);
                                 next = true;
                                 break;
                             case "3":
