@@ -3,8 +3,10 @@ package Practica2;
 import Practica2.clase.Clase_bocatas;
 import Practica2.clase.Clase_user;
 
+import javax.script.ScriptContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Validaciones {
@@ -686,19 +688,19 @@ public class Validaciones {
      * @return Devuelve las alergias qeu tiene el usuario
      */
 
-    public static ArrayList<String> alergiasUsuario(){
+    public static String[] alergiasUsuario(){
         Scanner sc = new Scanner(System.in);
         boolean next = true;
-        ArrayList<String> alergias = new ArrayList<String>();
+        String[] alergias = new String[50];
 
         System.out.println("Ingrese sus lergias, cuando las pongas todas pon terminado");
 
-        while (next) {
+        for (int i = 0; i < 50; i++) {
             String alergia = sc.nextLine();
             if (alergia.equalsIgnoreCase("terminado")) {
                 break;
             }
-            alergias.add(alergia);
+            alergias[i] = alergia;
         }
         return alergias;
     }
@@ -807,12 +809,35 @@ public class Validaciones {
         return 0;
     }
 
+    public static boolean tienesalergias(){
+        Scanner sc = new Scanner(System.in);
+        String elec;
+        boolean next = true;
+
+        System.out.println("¿Tienes alergias?");
+        System.out.println("Si o no");
+        elec = sc.nextLine();
+
+        do {
+            if (elec.equalsIgnoreCase("si")) {
+                return true;
+            } else if (elec.equalsIgnoreCase("no")) {
+                return false;
+            } else {
+                System.out.println("Tienes que escribir una de las dos opciones");
+                next = true;
+            }
+        }while (next);
+        return false;
+    }
+
     /**
      * Sirve para crear a los usuarios
      * @param usuarios es el listado de usuarios
      */
 
     public static void agregarUsuarios(ArrayList<Clase_user> usuarios){
+        String[] alergias;
 
         //Nombre y apellidos del usuario
 
@@ -836,7 +861,13 @@ public class Validaciones {
 
         //Alergias
 
-        ArrayList<String> alergias_user = alergiasUsuario();
+        boolean alergico = tienesalergias();
+        if (alergico) {
+            alergias = alergiasUsuario();
+        } else {
+            alergias = null;
+        }
+
 
         //Fecha de usuario
 
@@ -846,7 +877,11 @@ public class Validaciones {
 
         int rol = rolUsuario(curso);
 
-        usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena,alergias_user,fecha_nacimiento, rol));
+        //VARIABLES QUE NO SE HACEN AQUÍ,
+
+        String [] bocatas = new String[10];
+
+        usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena, alergias, alergico, bocatas, fecha_nacimiento, rol));
 
     }
 
@@ -938,7 +973,7 @@ public class Validaciones {
         do {
             user = sc.nextLine();
             for (Clase_user usurio : usuarios) {
-                if (user.equals(usurio.getUsuario())) {
+                if (user.equalsIgnoreCase(usurio.getUsuario())) {
                     System.out.println("Pon la contrasña del usuario: ");
                     for (int i = 3; i < 0; i--) {
                         contrasena = sc.nextLine();
@@ -952,7 +987,6 @@ public class Validaciones {
                         }
                     }
                 } else {
-                    System.out.println("Usuario no encontrado");
                     next = true;
                 }
             }
@@ -995,6 +1029,5 @@ public class Validaciones {
                 }*/
             }
         }
-        return null;
     }
 }

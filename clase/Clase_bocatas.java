@@ -8,8 +8,9 @@ public class Clase_bocatas {
     private String[] alergenos;
     private String ciudadpopular;
     private double precio;
+    private boolean caliente;
 
-    public Clase_bocatas (int id,String nombre, String descrip, String [] ingredientes, String[] alergenos, String ciudadpopular, double precio){
+    public Clase_bocatas (int id,String nombre, String descrip, String [] ingredientes, String[] alergenos, String ciudadpopular, double precio, boolean caliente){
         this.id=id;
         this.nombre=nombre;
         this.descrip=descrip;
@@ -17,6 +18,7 @@ public class Clase_bocatas {
         this.alergenos=alergenos;
         this.ciudadpopular=ciudadpopular;
         this.precio=precio;
+        this.caliente=caliente;
     }
 
     public void mostrarCuriosidades(){
@@ -27,7 +29,7 @@ public class Clase_bocatas {
         System.out.println("Sabes que el "+nombre+" es popular en " +ciudadpopular+ " porque en los momentos dificiles al haber pocos recursos se hacia este bocata");
     }
 
-    public void mostrarAlergenos(String nombre,String[] alergenos){
+    public void mostrarAlergenos(String nombre, String[] alergenos){
         this.nombre=nombre;
         this.alergenos=alergenos;
         System.out.println("El "+nombre+" tiene estos alergenos:");
@@ -54,9 +56,10 @@ public class Clase_bocatas {
         this.alergenos=alergenos;
         this.ciudadpopular=ciudadpopular;
         this.precio=precio;
+        this.caliente=caliente;
 
         System.out.println("----------------\n");
-        System.out.println("Id bocata: "+id+ "\nNombre del bocata: "+nombre+"\nDescripción del bocata: "+descrip+"\nIngredientes del bocata: "+ingredientes+"\nAlergenos del bocata: "+alergenos+"\nCiudad popular del bocata: "+ciudadpopular+"\nPrecio del bocata: "+precio);
+        System.out.println("Id bocata: "+id+ "\nNombre del bocata: "+nombre+"\nDescripción del bocata: "+descrip+"\nIngredientes del bocata: "+ingredientes+"\nAlergenos del bocata: "+alergenos+"\nCiudad popular del bocata: "+ciudadpopular+"\nPrecio del bocata: "+precio+"\nEsta caliente: "+caliente);
         System.out.println("\n----------------");
     }
 
@@ -116,6 +119,12 @@ public class Clase_bocatas {
         this.precio = precio;
     }
 
+    public void setCaliente(boolean caliente) {
+        this.caliente = caliente;
+    }
 
+    public boolean isCaliente() {
+        return caliente;
+    }
 }
 
