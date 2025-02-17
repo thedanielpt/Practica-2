@@ -295,7 +295,7 @@ public class Validaciones {
      * @return true si el usuario se h alogueado correctamente y devuelve false en caso contrario
      */
 
-    public static boolean login(ArrayList<Clase_user> nameUsers){
+    public static boolean loginAdmin(ArrayList<Clase_user> nameUsers){
 
         Scanner sc = new Scanner(System.in);
         String nameL = "";
@@ -854,6 +854,10 @@ public class Validaciones {
 
     //2.1 Listar bocadillos disponibles
 
+    /**
+     * Te muestra los bocadillos que hay
+     * @param bocatas La clase de los bocadillos que va a mirar
+     */
     public static void listarbocadillos(ArrayList<Clase_bocatas> bocatas){
         if (bocatas.isEmpty()) {
             System.out.println("No hay bocatas registrados.");
@@ -865,6 +869,13 @@ public class Validaciones {
         }
     }
 
+    /**
+     * Busca un bocata con el nombreBocata que hayas utilizado y te dice si lo ha encontradp
+     * @param bocatas Clase a la que se buscan los bocatas
+     * @param nombreBocata El nombre del bocata que se busca
+     * @return devuelve true si .lo encontro y false si no lo ha encontrado
+     */
+
     public static boolean buscarbocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
         for (Clase_bocatas bocata : bocatas) {
             if (nombreBocata.equalsIgnoreCase(bocata.getNombre())) {
@@ -874,6 +885,12 @@ public class Validaciones {
         return false;
     }
 
+    /**
+     * Pide la curiosidad del bocata que se haya elegíado
+     * @param bocatas La clase de los bocadillos
+     * @param nombreBocata el nombre del bocata
+     */
+
     public static void dameCuriosidadBocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
         for (Clase_bocatas bocata : bocatas) {
             if (nombreBocata.equalsIgnoreCase(bocata.getNombre())) {
@@ -881,6 +898,11 @@ public class Validaciones {
             }
         }
     }
+
+    /**
+     * Sirve para mirar la curiosidad del bocata
+     * @param bocatas Es la clase a la que va a buscar el bocata
+     */
 
     public static void verCuriosidaBocata(ArrayList<Clase_bocatas> bocatas){
         Scanner sc=new Scanner(System.in);
@@ -899,7 +921,80 @@ public class Validaciones {
 
     //3.1 SELECCIONAR USUARIO
 
-    public static void seleccionUser(ArrayList<Clase_user> usuarios){
+    /**
+     * Logueo de los usuarios
+     * @param usuarios La clase que se va a buscar el usuario
+     * @return user que es el nombre del usuario
+     */
 
+    public static String loginUser(ArrayList<Clase_user> usuarios){
+        Scanner sc = new Scanner(System.in);
+        String user = "";
+        String contrasena = "";
+        boolean next = false;
+
+        System.out.println("Elige tu usuario: ");
+
+        do {
+            user = sc.nextLine();
+            for (Clase_user usurio : usuarios) {
+                if (user.equals(usurio.getUsuario())) {
+                    System.out.println("Pon la contrasña del usuario: ");
+                    for (int i = 3; i < 0; i--) {
+                        contrasena = sc.nextLine();
+                        if (contrasena.equals(usurio.getPassword())) {
+                            return user;
+                        } else if (i == 0) {
+                            System.out.println("Intentos agotados");
+                            next = false;
+                        } else {
+                            System.out.println("Intentalo de nuevo, te quedan "+i+" intentos");
+                        }
+                    }
+                } else {
+                    System.out.println("Usuario no encontrado");
+                    next = true;
+                }
+            }
+        } while (next);
+        return null;
+    }
+
+    //3.2 ELEGIR BOCADILLO
+
+    public static boolean comprobarAlergias(ArrayList<Clase_bocatas> bocatas, String nombreUser){
+        for (Clase_bocatas bocata : bocatas) {
+
+        }
+        return false;
+    }
+
+    /**
+     * pide al usuario que elija el bocata.
+     * @param bocatas clase a la que se coge los bocatas
+     */
+
+    public static void elegirBocata(ArrayList<Clase_bocatas> bocatas, String usuario){
+        Scanner sc = new Scanner(System.in);
+        String elec = "";
+
+        System.out.println("Elige el bocata que quieras");
+        for (Clase_bocatas bocata : bocatas){
+            System.out.println("-----------------");
+            System.out.println(bocata.getNombre());
+            System.out.println("-----------------");
+        }
+        elec = sc.nextLine();
+
+        for (Clase_bocatas bocata : bocatas) {
+            if (elec.equalsIgnoreCase(bocata.getNombre())) {
+                System.out.println("Bocata eleido :"+ bocata.getNombre());
+                System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
+                /*if (){
+
+                }*/
+            }
+        }
+        return null;
     }
 }

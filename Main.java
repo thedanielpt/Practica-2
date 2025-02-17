@@ -33,7 +33,7 @@ public class Main {
 
         //USUARIOS ESO
 
-        usuarios.add(new Clase_user("user1_4ESO", "Carlos Pérez", "carlos4eso@email.com", "4ºESO", "Pass_1", new ArrayList<>(), LocalDate.of(2009, 5, 14), 3));
+        usuarios.add(new Clase_user("daniel_1", "Carlos Pérez", "carlos4eso@email.com", "4ºESO", "Daniel_1", new ArrayList<>(), LocalDate.of(2009, 5, 14), 3));
         usuarios.add(new Clase_user("user2_4ESO", "Marta López", "marta4eso@email.com", "4ºESO", "Pass_2", new ArrayList<>(), LocalDate.of(2009, 8, 22), 3));
 
         usuarios.add(new Clase_user("user1_3ESO", "Luis Gómez", "luis3eso@email.com", "3ºESO", "Pass_3", new ArrayList<>(), LocalDate.of(2010, 3, 10), 3));
@@ -112,39 +112,39 @@ public class Main {
 
             switch (elec) {
                 case "1":
-                    do {
-                        if (Validaciones.login(usuarios)) {
-                            do {
-                                System.out.println("1. Listar usuarios");
-                                System.out.println("2. Añadir nuevo usuario");
-                                System.out.println("3. Volver al menu princiapal");
-                                elec = sc.nextLine();
+                    if (Validaciones.loginAdmin(usuarios)) {
+                        do {
+                            System.out.println("1. Listar usuarios");
+                            System.out.println("2. Añadir nuevo usuario");
+                            System.out.println("3. Volver al menu princiapal");
+                            elec = sc.nextLine();
 
-                                switch (elec) {
-                                    case "1":
-                                        Validaciones.listarUsuarios(usuarios);
-                                        next = true;
-                                        break;
-                                    case "2":
-                                        Validaciones.agregarUsuarios(usuarios);
-                                        next = true;
-                                        break;
-                                    case "3":
-                                        System.out.println("Saliendo al menu principal ...");
-                                        next = false;
-                                        break;
-                                    default:
-                                        System.out.println("Tienes que elegir");
-                                        next = true;
-                                        break;
-                                }
-                            } while (next);
-                        } else {
-                            System.out.println("No puedes loguearte si no eres administrador");
-                            next = false;
-                            break;
-                        }
-                    }while (next);
+                            switch (elec) {
+                                case "1":
+                                    Validaciones.listarUsuarios(usuarios);
+                                    next = true;
+                                    break;
+                                case "2":
+                                    Validaciones.agregarUsuarios(usuarios);
+                                    next = true;
+                                    break;
+                                case "3":
+                                    System.out.println("Saliendo al menu principal ...");
+                                    next = false;
+                                    usuario = "";
+                                    contrasena = "";
+                                    break;
+                                default:
+                                    System.out.println("Tienes que elegir");
+                                    next = true;
+                                    break;
+                            }
+                        } while (next);
+                    } else {
+                        System.out.println("No puedes loguearte si no eres administrador");
+                        next = false;
+                        break;
+                    }
                     break;
                 case "2":
                     do {
@@ -180,7 +180,39 @@ public class Main {
 
                         switch (elec) {
                             case "1":
+                                usuario = Validaciones.loginUser(usuarios);
+                                if (3 < usuario.length()) {
+                                    break;
+                                } else {
+                                   System.out.println("No has podido loguearte");
+                                   usuario = "";
+                                  break;
+                                }
+                            case "2":
+                                if (2 < usuario.length()) {
+                                    for (int i = 0; i < 10; i++) {
+                                        Validaciones.elegirBocata(bocatas, usuario);
+                                        System.out.println("¿Quieres pedir un bocata mas?");
+                                        System.out.println("SI");
+                                        System.out.println("NO");
+                                        elec = sc.nextLine();
 
+                                        if (elec.equalsIgnoreCase("si")) {
+
+                                        } else if (elec.equalsIgnoreCase("no")) {
+                                            i = 12;
+                                            System.out.println("Eston son los bocatas pedidos:");
+                                            for (int j = 0; j < bocatasPedidos.length; j++) {
+                                                System.out.println(bocatasPedidos[j]);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    System.out.println("No te has logueado");
+                                    usuario = "";
+                                    break;
+                                }
+                                break;
                         }
 
                     }while (next);
@@ -189,6 +221,4 @@ public class Main {
 
         } while (next);
     }
-
-
 }
