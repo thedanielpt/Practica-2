@@ -1,6 +1,7 @@
 package Practica2;
 
 import Practica2.clase.Clase_bocatas;
+import Practica2.clase.Clase_pedidos;
 import Practica2.clase.Clase_user;
 
 import javax.script.ScriptContext;
@@ -879,9 +880,7 @@ public class Validaciones {
 
         //VARIABLES QUE NO SE HACEN AQUÍ,
 
-        String [] bocatas = new String[10];
-
-        usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena, alergias, alergico, bocatas, fecha_nacimiento, rol));
+        usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena, alergico, alergias, fecha_nacimiento, rol));
 
     }
 
@@ -972,16 +971,16 @@ public class Validaciones {
 
         do {
             user = sc.nextLine();
-            for (Clase_user usurio : usuarios) {
-                if (user.equalsIgnoreCase(usurio.getUsuario())) {
+            for (Clase_user usuario : usuarios) {
+                if (user.equalsIgnoreCase(usuario.getUsuario())) {
                     System.out.println("Pon la contrasña del usuario: ");
-                    for (int i = 3; i < 0; i--) {
+                    for (int i = 3; i > 0; i--) {
                         contrasena = sc.nextLine();
-                        if (contrasena.equals(usurio.getPassword())) {
-                            return user;
+                        if (contrasena.equals(usuario.getPassword())) {
+                            return usuario.getUsuario();
                         } else if (i == 0) {
                             System.out.println("Intentos agotados");
-                            next = false;
+                            return null;
                         } else {
                             System.out.println("Intentalo de nuevo, te quedan "+i+" intentos");
                         }
@@ -990,17 +989,106 @@ public class Validaciones {
                     next = true;
                 }
             }
+            System.out.println("Intentalo de nuevo");
         } while (next);
         return null;
     }
 
     //3.2 ELEGIR BOCADILLO
 
-    public static boolean comprobarAlergias(ArrayList<Clase_bocatas> bocatas, String nombreUser){
-        for (Clase_bocatas bocata : bocatas) {
+    /**
+     * Comprueba los alergenos que tiene
+     * @param bocatas la clase donde estan los bocatas
+     * @param nombreUser el nombre del suuario
+     * @param usuarios ña clae donde estan los usuarios
+     * @return devuelve true si encuentra una alergia que le pueda afectar al usuario, si no devuelve false
+     */
 
+    public static boolean comprobarAlergias(ArrayList<Clase_bocatas> bocatas, String nombreUser, ArrayList<Clase_user> usuarios){
+        for (Clase_bocatas bocata : bocatas) {
+            for (Clase_user usuario : usuarios) {
+                if (usuario.getUsuario().equalsIgnoreCase(nombreUser)) {
+                    for (int i = 0; i < usuario.getAlergias().length; i++) {
+                        for (int j = 0; j < bocata.getAlergenos().length; j++) {
+                            if (usuario.getAlergias()[i].equalsIgnoreCase(bocata.getAlergenos()[j])) {
+                                System.out.println("No puedes pedir este bocata, el bocata tiene este alérgeno: "+bocata.getAlergenos()[j]);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
         }
         return false;
+    }
+
+    public static void procesarPedido(ArrayList<Clase_bocatas> bocatas, String user, ArrayList<Clase_user> usuarios, ArrayList<Clase_pedidos> pedidos, String elec){
+        Scanner sc = new Scanner(System.in);
+        boolean alergico = false;
+        String[] alergias = null;
+        String bocataPedido = "";
+        boolean next = false;
+
+        for (Clase_user usuario: usuarios) {
+            if (usuario.getUsuario().equalsIgnoreCase(user)) {
+                alergico = usuario.getAlergico();
+                alergias = usuario.getAlergias();
+                for (Clase_bocatas bocata : bocatas) {
+                    if (elec.equalsIgnoreCase(bocata.getNombre())) {
+                        System.out.println("Bocata eleido :"+ bocata.getNombre());
+                        if (alergico){
+                            System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
+                            if (comprobarAlergias(bocatas, user, usuarios)) {
+                                System.out.println("No puedes pedir este bocata, por tus alergias");
+                            } else {
+                                elec = bocataPedido;
+
+                                System.out.println("¿Quieres seguir con la compra?");
+                                System.out.println("SI");
+                                System.out.println("NO");
+                                elec = sc.nextLine();
+
+                                do {
+                                    if (elec.equalsIgnoreCase("si")) {
+                                        System.out.println("Pedido realizado");
+                                        pedidos.add(new Clase_pedidos (pedidos.getLast().getId_pedido()+1, usuario.getUsuario(),bocata.getId(),LocalDate.now(),"Pendiente"));
+                                        next = false;
+                                    } else if (elec.equalsIgnoreCase("no")) {
+                                        System.out.println("Bocadillo cancelado");
+                                        next = false;
+                                    } else {
+                                        System.out.println("Tienes que elegir una opcion");
+                                        next = true;
+                                    }
+                                } while (next);
+                            }
+                        } else {
+                            elec = bocataPedido;
+
+                            System.out.println("¿Quieres seguir con la compra?");
+                            System.out.println("SI");
+                            System.out.println("NO");
+
+                            do {
+                                elec = sc.nextLine();
+                                if (elec.equalsIgnoreCase("si")) {
+                                    System.out.println("Pedido realizado");
+                                    pedidos.add(new Clase_pedidos (pedidos.getLast().getId_pedido()+1, usuario.getUsuario(),bocata.getId(),LocalDate.now(),"Pendiente"));
+                                    next = false;
+                                    break;
+                                } else if (elec.equalsIgnoreCase("no")) {
+                                    System.out.println("Bocadillo cancelado");
+                                    next = false;
+                                } else {
+                                    System.out.println("Tienes que elegir una opcion");
+                                    next = true;
+                                }
+                            } while (next);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1008,26 +1096,38 @@ public class Validaciones {
      * @param bocatas clase a la que se coge los bocatas
      */
 
-    public static void elegirBocata(ArrayList<Clase_bocatas> bocatas, String usuario){
+    public static void elegirBocata(ArrayList<Clase_bocatas> bocatas, String user, ArrayList<Clase_user> usuarios, ArrayList<Clase_pedidos> pedidos){
         Scanner sc = new Scanner(System.in);
         String elec = "";
+        boolean alergico = false;
+        String[] alergias = null;
+        String bocataPedido = "";
+        boolean next = false;
+        String[] nombreBocatas = new String[bocatas.size()];
+        int numero = 0;
 
         System.out.println("Elige el bocata que quieras");
-        for (Clase_bocatas bocata : bocatas){
+        System.out.println("Si hay acentos, tienes que ponerlos si o si");
+        for (Clase_bocatas bocata : bocatas) {
             System.out.println("-----------------");
             System.out.println(bocata.getNombre());
             System.out.println("-----------------");
+            nombreBocatas[numero] = bocata.getNombre();
+            numero++;
         }
-        elec = sc.nextLine();
 
-        for (Clase_bocatas bocata : bocatas) {
-            if (elec.equalsIgnoreCase(bocata.getNombre())) {
-                System.out.println("Bocata eleido :"+ bocata.getNombre());
-                System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
-                /*if (){
+        do {
+            elec = sc.nextLine();
 
-                }*/
+            if (nombreBocatas[0].equalsIgnoreCase(elec)) {
+                procesarPedido(bocatas, user, usuarios, pedidos, elec);
+            } else if (nombreBocatas[1].equalsIgnoreCase(elec)) {
+                procesarPedido(bocatas, user, usuarios, pedidos, elec);
+            } else {
+                System.out.println("No se encontro el bocata, vuelve a escribirlo");
+                next = true;
             }
-        }
+        }while (next);
+
     }
 }

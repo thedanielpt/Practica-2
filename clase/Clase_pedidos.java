@@ -18,7 +18,7 @@ public class Clase_pedidos {
         this.estado = estado;
     }
 
-    public String mostrarDetallesPedidos(int id_pedido, String id_usuario, int id_bocadillo, LocalDate fecha, String estado){
+    public String mostrarDetallesPedidos(){
         this.id_pedido = id_pedido;
         this.id_usuario = id_usuario;
         this.id_bocadillo = id_bocadillo;

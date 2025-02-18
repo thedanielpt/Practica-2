@@ -12,17 +12,15 @@ public class Clase_user {
     private String password;
     private boolean alergico;
     private String[] alergias;
-    private String[] bocatasPedidos;
     private LocalDate fecha_nacimiento;
     private int rol;
 
-    public Clase_user(String usuario, String nombre, String correo, String curso, String password, String[] bocatasPedidos,boolean alergico,String[] alergias, LocalDate fecha_nacimiento, int rol) {
+    public Clase_user(String usuario, String nombre, String correo, String curso, String password,boolean alergico,String[] alergias, LocalDate fecha_nacimiento, int rol) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.correo = correo;
         this.curso = curso;
         this.password = password;
-        this.bocatasPedidos=bocatasPedidos;
         this.alergico=alergico;
         this.alergias = alergias;
         this.fecha_nacimiento=fecha_nacimiento;
@@ -35,7 +33,6 @@ public class Clase_user {
         this.correo = correo;
         this.curso = curso;
         this.password = password;
-        this.bocatasPedidos=bocatasPedidos;
         this.alergias = alergias;
         this.alergico=alergico;
         this.fecha_nacimiento = fecha_nacimiento;
@@ -43,31 +40,23 @@ public class Clase_user {
 
         if (alergico = true) {
             System.out.println("\n----------------");
-            System.out.println("Nombre de user = " + usuario + "\nNombre del alumno = " + nombre + "\nCorreo electrónico = " + correo + "\nCurso = " + curso + "\nPassword = " + password + "\nBocatas pedidos: "+bocatasPedidos+ "\nAlergias = " + alergias + "\nFecha de nacimiento = " + fecha_nacimiento + "\nRol = " + rol);
+            System.out.println("Nombre de user = " + usuario + "\nNombre del alumno = " + nombre + "\nCorreo electrónico = " + correo + "\nCurso = " + curso + "\nPassword = " + password + "\nAlergias = " + alergias + "\nFecha de nacimiento = " + fecha_nacimiento + "\nRol = " + rol);
             System.out.println("\n----------------");
         } else {
             System.out.println("\n----------------");
-            System.out.println("Nombre de user = " + usuario + "\nNombre del alumno = " + nombre + "\nCorreo electrónico = " + correo + "\nCurso = " + curso + "\nPassword = " + password + "\nBocatas pedidos: "+bocatasPedidos+ "\n¿Eres alérgico? = " + alergico + "\nFecha de nacimiento = " + fecha_nacimiento + "\nRol = " + rol);
+            System.out.println("Nombre de user = " + usuario + "\nNombre del alumno = " + nombre + "\nCorreo electrónico = " + correo + "\nCurso = " + curso + "\nPassword = " + password + "\n¿Eres alérgico? = " + alergico + "\nFecha de nacimiento = " + fecha_nacimiento + "\nRol = " + rol);
             System.out.println("\n----------------");
         }
 
 
     }
 
-    public void setBocatasPedidos(String[] bocatasPedidos) {
-        this.bocatasPedidos = bocatasPedidos;
-    }
-
-    public String[] getBocatasPedidos() {
-        return bocatasPedidos;
+    public String getNombre() {
+        return nombre;
     }
 
     public String getUsuario() {
         return usuario;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 
     public String getCorreo() {
@@ -80,6 +69,14 @@ public class Clase_user {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isAlergico() {
+        return alergico;
+    }
+
+    public String[] getAlergias() {
+        return alergias;
     }
 
     public LocalDate getFecha_nacimiento() {
@@ -102,12 +99,20 @@ public class Clase_user {
         this.correo = correo;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setCurso(String curso) {
         this.curso = curso;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAlergico(boolean alergico) {
+        this.alergico = alergico;
+    }
+
+    public void setAlergias(String[] alergias) {
+        this.alergias = alergias;
     }
 
     public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
@@ -118,19 +123,7 @@ public class Clase_user {
         this.rol = rol;
     }
 
-    public String[] getAlergias() {
-        return alergias;
-    }
-
-    public boolean isAlergico() {
+    public boolean getAlergico() {
         return alergico;
-    }
-
-    public void setAlergico(boolean alergico) {
-        this.alergico = alergico;
-    }
-
-    public void setAlergias(String[] alergias) {
-        this.alergias = alergias;
     }
 }
