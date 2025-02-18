@@ -1022,6 +1022,15 @@ public class Validaciones {
         return false;
     }
 
+    /**
+     * Este metodo sirve para procesar el pedido
+     * @param bocatas la clase de los bocatas
+     * @param user el nombre del usuario
+     * @param usuarios la clase de los usuarios
+     * @param pedidos la clase de los pedidos
+     * @param elec es lo que a elegido el usuario
+     */
+
     public static void procesarPedido(ArrayList<Clase_bocatas> bocatas, String user, ArrayList<Clase_user> usuarios, ArrayList<Clase_pedidos> pedidos, String elec){
         Scanner sc = new Scanner(System.in);
         boolean alergico = false;
@@ -1121,8 +1130,10 @@ public class Validaciones {
 
             if (nombreBocatas[0].equalsIgnoreCase(elec)) {
                 procesarPedido(bocatas, user, usuarios, pedidos, elec);
+                next = false;
             } else if (nombreBocatas[1].equalsIgnoreCase(elec)) {
                 procesarPedido(bocatas, user, usuarios, pedidos, elec);
+                next = false;
             } else {
                 System.out.println("No se encontro el bocata, vuelve a escribirlo");
                 next = true;

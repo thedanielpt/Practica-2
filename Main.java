@@ -88,6 +88,11 @@ public class Main {
 
         String elec = "";
 
+        //FECHA
+
+        LocalDate hoy = LocalDate.now();
+        int diaHoy = hoy.getDayOfMonth();
+
         //USUARIO REGISTRADO
 
         String usuario = "daniel";
@@ -199,8 +204,8 @@ public class Main {
                             case "2":
                                 do {
                                     if (5 <= usuario.length()) {
+                                        Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos);
                                         for (int i = 0; i < 10; i++) {
-                                            Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos);
                                             System.out.println("¿Quieres pedir un bocata mas?");
                                             System.out.println("SI");
                                             System.out.println("NO");
@@ -214,12 +219,15 @@ public class Main {
                                                 for (Clase_user user : usuarios) {
                                                     if (usuario.equalsIgnoreCase(user.getUsuario())) {
                                                         for (Clase_pedidos pedido : pedidos) {
-                                                            if (pedido.getId_usuario().equalsIgnoreCase(user.getUsuario() && )){
+                                                            if (pedido.getId_usuario().equalsIgnoreCase(user.getUsuario()) && pedido.getFecha().getDayOfMonth() == diaHoy){
                                                                 System.out.println(pedido.mostrarDetallesPedidos());
+                                                                System.out.println("------------------------------");
                                                             }
                                                         }
                                                     }
                                                 }
+                                                next = false;
+                                                break;
                                             } else {
                                                 next = true;
                                                 System.out.println("Tienes que seleccionar uno");
@@ -235,6 +243,7 @@ public class Main {
                                 next = false;
                                 break;
                         }
+                        next = true;
                     }while (next);
             }
             next = true;
