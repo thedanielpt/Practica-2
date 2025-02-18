@@ -1040,7 +1040,7 @@ public class Validaciones {
             if (usuario.getUsuario().equalsIgnoreCase(user)) {
                 alergico = usuario.getAlergico();
                 for (Clase_bocatas bocata : bocatas) {
-                    if (elec.equalsIgnoreCase(bocata.getNombre()) && bocata.getcaliente()==true) {
+                    if (elec.equalsIgnoreCase(bocata.getNombre()) && caliente==true) {
                         System.out.println("Bocata eleido :"+ bocata.getNombre()+"\nY es un bocata caliente");
                         if (alergico){
                             System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
@@ -1091,7 +1091,7 @@ public class Validaciones {
                                 }
                             } while (next);
                         }
-                    } else if (elec.equalsIgnoreCase(bocata.getNombre()) && bocata.getcaliente()==false) {
+                    } else if (elec.equalsIgnoreCase(bocata.getNombre()) && caliente==false) {
                         System.out.println("Bocata eleido :"+ bocata.getNombre()+"\nY es un bocata frio");
                         if (alergico){
                             System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
