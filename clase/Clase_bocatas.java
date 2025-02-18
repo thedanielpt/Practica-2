@@ -126,5 +126,9 @@ public class Clase_bocatas {
     public boolean isCaliente() {
         return caliente;
     }
+
+    public boolean getcaliente() {
+        return caliente;
+    }
 }
 

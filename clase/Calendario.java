@@ -6,8 +6,13 @@ public class Calendario {
     private int id;
     private LocalDate fecha_inicio;
     private LocalDate fecha_fin;
-    private String Bocadillo_quincena_frio[];
-    private String Bocadillo_quincena_calietes[];
+    private String Bocadillo_quincena_frios[];
+    private String Bocadillo_quincena_calientes[];
+
+    public Calendario(String[] bocadillo_quincena_frio, String[] bocadillo_quincena_calietes) {
+        Bocadillo_quincena_frios = bocadillo_quincena_frio;
+        Bocadillo_quincena_calientes = bocadillo_quincena_calietes;
+    }
 
     public int getId() {
         return id;
@@ -21,12 +26,12 @@ public class Calendario {
         return fecha_inicio;
     }
 
-    public String[] getBocadillo_quincena_frio() {
-        return Bocadillo_quincena_frio;
+    public String[] getBocadillo_quincena_frios() {
+        return Bocadillo_quincena_frios;
     }
 
-    public String[] getBocadillo_quincena_calietes() {
-        return Bocadillo_quincena_calietes;
+    public String[] getBocadillo_quincena_calientes() {
+        return Bocadillo_quincena_calientes;
     }
 
     public void setId(int id) {
@@ -41,11 +46,11 @@ public class Calendario {
         this.fecha_fin = fecha_fin;
     }
 
-    public void setBocadillo_quincena_frio(String[] bocadillo_quincena_frio) {
-        Bocadillo_quincena_frio = bocadillo_quincena_frio;
+    public void setBocadillo_quincena_frios(String[] bocadillo_quincena_frios) {
+        Bocadillo_quincena_frios = bocadillo_quincena_frios;
     }
 
-    public void setBocadillo_quincena_calietes(String[] bocadillo_quincena_calietes) {
-        Bocadillo_quincena_calietes = bocadillo_quincena_calietes;
+    public void setBocadillo_quincena_calientes(String[] bocadillo_quincena_calientes) {
+        Bocadillo_quincena_calientes = bocadillo_quincena_calientes;
     }
 }

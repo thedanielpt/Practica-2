@@ -1,4 +1,5 @@
 package Practica2;
+import Practica2.clase.Calendario;
 import Practica2.clase.Clase_bocatas;
 import Practica2.clase.Clase_pedidos;
 import Practica2.clase.Clase_user;
@@ -28,6 +29,7 @@ public class Main {
         ArrayList<Clase_user> usuarios = new ArrayList<>();
         ArrayList<Clase_bocatas> bocatas = new ArrayList<>();
         ArrayList<Clase_pedidos> pedidos = new ArrayList<>();
+        ArrayList<Calendario> calendarios = new ArrayList<>();
 
         //USUARIO ADMIN
 
@@ -74,11 +76,41 @@ public class Main {
         usuarios.add(new Clase_user("user2_Cocina", "Isabel Domínguez", "isabelcocina@email.com", "Cocina", "Pass_20",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(1987, 9, 30), 2));
 
         //BOCATAS
+
         String[] ingredientes = {"Pan fresco", "Salchichón de alta calidad"};
         String[] alergenos = {"Gluten", "Lácteos"};
 
         bocatas.add(new Clase_bocatas(1, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, true));
-        bocatas.add(new Clase_bocatas(2, "Bocadillo de Merluza", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, false));
+        bocatas.add(new Clase_bocatas(2, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, false));
+        bocatas.add(new Clase_bocatas(3, "Bocadillo de Merluza", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, false));
+        bocatas.add(new Clase_bocatas(4, "Bocadillo de Merluza", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, true));
+
+        int numCalientes = 0;
+        int numFrios = 0;
+
+        for (Clase_bocatas bocata : bocatas) {
+            if (bocata.getcaliente()) {
+                numCalientes++;
+            } else {
+                numFrios++;
+            }
+        }
+
+        String[] bocatasCalientes = new String[numCalientes];
+        String[] bocatasfrios = new String[numFrios];
+        int caliente = 0;
+        int frio = 0;
+
+        for (Clase_bocatas bocata : bocatas) {
+            if (bocata.getcaliente()) {
+                bocatasCalientes[caliente] = bocata.getNombre();
+                caliente++;
+            } else {
+                bocatasfrios[frio] = bocata.getNombre();
+                frio++;
+            }
+        }
+        calendarios.add(new Calendario(bocatasCalientes, bocatasfrios));
 
         //PEDIDO
 
@@ -204,7 +236,7 @@ public class Main {
                             case "2":
                                 do {
                                     if (5 <= usuario.length()) {
-                                        Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos);
+                                        Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos, calendarios);
                                         for (int i = 0; i < 10; i++) {
                                             System.out.println("¿Quieres pedir un bocata mas?");
                                             System.out.println("SI");
@@ -212,7 +244,7 @@ public class Main {
                                             elec = sc.nextLine();
 
                                             if (elec.equalsIgnoreCase("si")) {
-                                                Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos);
+                                                Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos, calendarios);
                                             } else if (elec.equalsIgnoreCase("no")) {
                                                 i = 12;
                                                 System.out.println("Eston son los bocatas pedidos:");
@@ -239,6 +271,8 @@ public class Main {
                                         break;
                                     }
                                 }while (next);
+                            case "3":
+
                             case"4":
                                 next = false;
                                 break;
