@@ -126,55 +126,47 @@ public class Main {
 
                     fecha = Validaciones.validarFecha();
 
-                    medirFecha = fecha.getYear() + "/" + fecha.getMonthValue() + "/" + fecha.getDayOfMonth();
+                    //CREACION DE CONTRASEÑA
 
-                    //Si fecha esta entre los ocho y diez caracteres te deja entrar al if, si no te saca al menu principal
-                    if (medirFecha.length() >= 8 && medirFecha.length() <= 10) {
-                        //CREACION DE CONTRASEÑA
+                    contrasena = Validaciones.validarContrasena();
 
-                        contrasena = Validaciones.validarContrasena();
+                    //CREAR CORREO
 
-                        //CREAR CORREO
+                    gmail = Validaciones.validarGmail();
 
-                        gmail = Validaciones.validarGmail();
+                    //PREGUNTA IMPORTANTE
 
-                        //PREGUNTA IMPORTANTE
+                    do {
+                        System.out.println("Ahora elige entre estas preguntas de seguridad");
+                        System.out.println("1. ¿Cual es tu comida favorita?");
+                        System.out.println("2. ¿Cual es tu juego favorito?");
+                        System.out.println("3. ¿Cual es tu numero favorito?");
+                        elec = sc.nextLine();
+                        switch (elec){
+                            case "1":
+                                System.out.println("¿Cual es tu comida favorita?");
+                                respuesta = sc.nextLine();
+                                pregunta = "¿Cual es tu comida favorita?";
+                                next = false;
+                                break;
+                            case "2":
+                                System.out.println("¿Cual es tu juego favorito?");
+                                respuesta = sc.nextLine();
+                                pregunta = "¿Cual es tu juego favorito?";
+                                next = false;
+                                break;
+                            case "3":
+                                System.out.println("¿Cual es tu numero favorito?");
+                                respuesta = sc.nextLine();
+                                pregunta = "¿Cual es tu numero favorito?";
+                                next = false;
+                                break;
+                            default:
+                                System.out.println("Tienes que elegir una opción");
+                                next = true;
+                        }
+                    } while (next);
 
-                        do {
-                            System.out.println("Ahora elige entre estas preguntas de seguridad");
-                            System.out.println("1. ¿Cual es tu comida favorita?");
-                            System.out.println("2. ¿Cual es tu juego favorito?");
-                            System.out.println("3. ¿Cual es tu numero favorito?");
-                            elec = sc.nextLine();
-                            switch (elec){
-                                case "1":
-                                    System.out.println("¿Cual es tu comida favorita?");
-                                    respuesta = sc.nextLine();
-                                    pregunta = "¿Cual es tu comida favorita?";
-                                    next = false;
-                                    break;
-                                case "2":
-                                    System.out.println("¿Cual es tu juego favorito?");
-                                    respuesta = sc.nextLine();
-                                    pregunta = "¿Cual es tu juego favorito?";
-                                    next = false;
-                                    break;
-                                case "3":
-                                    System.out.println("¿Cual es tu numero favorito?");
-                                    respuesta = sc.nextLine();
-                                    pregunta = "¿Cual es tu numero favorito?";
-                                    next = false;
-                                    break;
-                                default:
-                                    System.out.println("Tienes que elegir una opción");
-                                    next = true;
-                            }
-                        } while (next);
-                    } else {
-                        System.out.println("No eres mayor de edad");
-                        next = true;
-                        break;
-                    }
 
                     next = true;
                     System.out.println("Usuario registrado");
