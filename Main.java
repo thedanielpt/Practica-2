@@ -1,5 +1,7 @@
 package Practica2;
 
+import java.awt.*;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -30,16 +32,8 @@ public class Main {
         String nameUser = "";
 
         //Fecha
-        String diaU = "";
-        String mesU = "";
-        String anoU = "";
-        String diaUo;
-        String mesUo;
-        String anoUo;
-        String dia = 14 + "";
-        String mes = 11 + "";
-        String ano = 2024 + "";
-        String fecha = "";
+        String medirFecha = "";
+        LocalDate fecha;
         int edad = 0;
 
         //Contraseña
@@ -132,8 +126,10 @@ public class Main {
 
                     fecha = Validaciones.validarFecha();
 
+                    medirFecha = fecha.getYear() + "/" + fecha.getMonthValue() + "/" + fecha.getDayOfMonth();
+
                     //Si fecha esta entre los ocho y diez caracteres te deja entrar al if, si no te saca al menu principal
-                    if (fecha.length() >= 8 && fecha.length() <= 10) {
+                    if (medirFecha.length() >= 8 && medirFecha.length() <= 10) {
                         //CREACION DE CONTRASEÑA
 
                         contrasena = Validaciones.validarContrasena();

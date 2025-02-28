@@ -515,157 +515,95 @@ public class Validaciones {
      * @return Fecha de usuario
      */
 
-    public static String validarFecha() {
-        Scanner scan = new Scanner(System.in);
-        boolean next = true;
-        int diaU = 0;
-        int mesU = 0;
+    //Fecha
+
+    /**
+     * Este metodo devuelve la fecha del usuario que se halla
+     * @return Fecha de usuario
+     */
+
+    public static LocalDate validarFecha(){
+        Scanner sc = new Scanner(System.in);
+        LocalDate fecha = null;
+        LocalDate hoy = LocalDate.now();
+        int anoActual = hoy.getYear();
+
+        String selec = "";
         int anoU = 0;
-        int dia = 19;
-        int mes = 11;
-        int ano = 2024;
-        String fecha = "";
-        String esc;
-        int anoF = 0;
-        boolean mayor = false;
-        boolean dudamayor = false;
+        int mesU = 0;
+        int diaU = 0;
+        boolean next = true;
+        //AÑO
 
         do {
+            System.out.println("Pon tu año de nacimiento");
+            selec = sc.nextLine();
 
-            //AÑO
-            do {
-                System.out.println("Escribe tu año de nacimiento");
-                esc = scan.nextLine();
-                //Si son todos numeros  y mide cuatro caracteristicas pasa, si no no te deja pasar y volvera al bucle
-                if (esc.length() == 4 && soloNum(esc)){
-                    //Aqui pasa de String a Int y comprueba si es un año entre 2025 y 1950, si no esta te hace repetir el año
-                    anoU = Integer.parseInt(esc);
-                    if (anoU >=2025 || anoU <= 1950){
-                        System.out.println("Año no valido");
-                        next = true;
-                    } else {
-                        //Calcula la edad que tienes y se le pone la edad en la variable anoF
-                        anoF = ano - anoU;
-                        //Si tu edad es 17 puede que si seas mayor, por eso se te pone la variable dudamayor
-                        if (anoF == 17){
-                            System.out.println("Puede que seas mayor de edad");
-                            dudamayor = true;
-                            next = false;
-                                /*
-                                Dice que eres mayor, porque la variable anoF es mayor o igual a 18, pero mas adelante puede
-                                que se demuestre que no eres mayor de edad porque el mes o el dia en el que nacio aun no a llegadp
-                                 */
-                        } else if (anoF >= 18){
-                            System.out.println("Eres mayor de edad, pero puede que no lo seas");
-                            mayor = true;
-                            next = false;
-                            //Si tu edad es menor de 17 te hecha dle bucle y te saca de la funcion poniendo que mayor es false
-                        } else {
-                            System.out.println("eres menor de edad");
-                            next = false;
-                            mayor = false;
-                        }
-                    }
-
-                } else {
-                    System.out.println("año no valida");
+            if (Validaciones.soloNum(selec)){
+                anoU = Integer.parseInt(selec);
+                if (anoU < 1950 || anoU > anoActual) {
+                    System.out.println("Año no valido");
                     next = true;
-                }
-            } while (next);
-            //Comprueban las variables de mayor y dudamayor, para ver si te hecha al registro, para que te heche al menu principal
-            if (mayor || dudamayor){
-
-            } else return fecha;
-
-            //MES
-
-            do {
-                System.out.println("Pon tu mes de nacimiento");
-                System.out.println("Si se dice tu dia con solo un numero pon 0(numero que quieras)");
-                esc = scan.nextLine();
-                //Si son todos numeros  y mide dos caracteristicas pasa, si no no te deja pasar y volvera al bucle
-                if (esc.length() == 2 && soloNum(esc)){
-                    mesU = Integer.parseInt(esc);
-                    //Al convertirse de String a Int se comprueba si esta en un mes valido entre el 1 y el 12.
-                    if (mesU >= 1 && mesU <= 12) {
-                        //Si tienes 18 comprueba si tu mes de nacimiento es mayor al mes actual y si lo es te hecha
-                        if (anoF == 18 && mesU > mes) {
-                            return fecha;
-                            //Si la variable mayor es verdad te deja pasar sin probblema al siguiente bucle, sacandote primero de este
-                        } else  if (mayor) {
-                            next = false;
-                            //Si duduamayor es verdad y mesU es igual a mesdudamayor sigue estando en true y sales del bucle
-                        } else if (dudamayor && mesU == mes){
-                            dudamayor = true;
-                            next = false;
-                            //Si no es ninguna de estas sales del bucle y mesU es 0
-                        } else {
-                            mesU = 0;
-                            mayor = false;
-                            next = false;
-                        }
-                    } else {
-                        System.out.println("no es un mes valido");
-                        next = true;
-                    }
                 } else {
-                    System.out.println("mes no valido");
-                    next = true;
-                }
-            } while (next);
-
-        } while (next);
-
-        if (mayor || dudamayor) {
-
-        } else return fecha;
-
-        //DIA
-
-        do {
-            System.out.println("Escribe el dia en el que naciste");
-            System.out.println("Si tu dia es solo un numero pon 0(numero que sea)");
-            esc = scan.nextLine();
-            //Si son todos numeros  y mide dos caracteristicas pasa, si no no te deja pasar y volvera al bucle
-            if (esc.length() == 2 && soloNum(esc)) {
-                diaU = Integer.parseInt(esc);
-                //Comprueba de que este diaU entre el 0 y el 31
-                if (diaU >= 0 && diaU <= 31){
-                    //Si tienes 18 años y tu mes es mayor o igual y si diaU es mayor a dia te expulsa al menu principal
-                    if (anoF == 18 && mesU >= mes && diaU > dia) {
-                        return fecha;
-                        //Si dudamayor esta en true y diaU es mayr o igual a dia es que eres mayor y te sacan del bucle
-                    } else if (dudamayor && diaU >= dia) {
-                        mayor = true;
-                        System.out.println("eres mayor");
-                        next = false;
-                        //Si mayor es true te saca del bucle
-                    } else if (mayor){
-                        System.out.println("eres mayor");
-                        next = false;
-                        //Si no se hace nada de atras mayor se cnvierte en falso, haciendo de que el siguiente te hechara
-                    } else {
-                        mayor = false;
-                        next = false;
-                    }
-                } else {
-                    System.out.println("No es un dia valido");
-                    next = true;
+                    System.out.println("Tu año es = "+anoU);
+                    next = false;
                 }
             } else {
-                System.out.println("dia no valido");
+                System.out.println("Tiene que ser solo números");
                 next = true;
             }
         } while (next);
 
-        //Si no eres mayor te saca del bucle
-        if (mayor) {
+        //MES
 
-        } else return fecha;
+        do {
+            System.out.println("Pon tu mes de nacimiento");
+            selec = sc.nextLine();
 
+            if (Validaciones.soloNum(selec)){
+                mesU = Integer.parseInt(selec);
+                if (mesU < 1 || 12 < mesU ) {
+                    System.out.println("mes no valido");
+                    next = true;
+                } else {
+                    System.out.println("Tu mes es = "+mesU);
+                    next = false;
+                }
+            } else {
+                System.out.println("Tiene que ser solo números");
+                next = true;
+            }
+        } while (next);
 
-        fecha = diaU + "/" + mesU + "/" + anoU;
+        //Esto sirve para saber la longitud del mes.
+        //Primero ponemos los valores del año y el mes en fecha
+        fecha = LocalDate.of(anoU,mesU,1);
 
+        //Ahora se le pide que diga la longitud del mes
+        int longitudMesActual = fecha.lengthOfMonth();
+
+        //DÍA
+
+        do {
+            System.out.println("Pon tu día de nacimiento");
+            selec = sc.nextLine();
+
+            if (Validaciones.soloNum(selec)){
+                diaU = Integer.parseInt(selec);
+                if (diaU < 1 || diaU > longitudMesActual) {
+                    System.out.println("Día no valido");
+                    next = true;
+                } else {
+                    System.out.println("Tu día es = "+diaU);
+                    next = false;
+                }
+            } else {
+                System.out.println("Tiene que ser solo números");
+                next = true;
+            }
+        } while (next);
+        fecha = LocalDate.of(anoU, mesU,diaU);
+        System.out.println(fecha);
         return fecha;
     }
 }
