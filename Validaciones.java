@@ -1,9 +1,9 @@
-package Practica3;
+package Practica2;
 
-import Practica3.clase.Calendario;
-import Practica3.clase.Clase_bocatas;
-import Practica3.clase.Clase_pedidos;
-import Practica3.clase.Clase_user;
+import Practica2.clase.Calendario;
+import Practica2.clase.Clase_bocatas;
+import Practica2.clase.Clase_pedidos;
+import Practica2.clase.Clase_user;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,6 +68,76 @@ public class Validaciones {
             }
         }
         return null;
+    }
+
+    // RECUPERACIÓN CONTRASEÑA
+
+    /**
+     * Recuperar la contraseña
+     * @param pregunta Pregunta elegida cuando se haya hecho el registro
+     * @param respuesta Respuesta escrita por el usuario, para responder a la pregunta
+     * @return contrasenaNueva Contiene la nueva contraseña que se a esrito el usuario, si el usuario no a podido cambiarla, no
+     * tendra ningun caracter
+     */
+    public static String recuperacionContrasena(String pregunta, String respuesta) {
+        Scanner scan = new Scanner(System.in);
+        boolean next = false;
+        String contrasena = "";
+        String compContrasena = "";
+        String contrasenaNueva = "";
+        String respuestaPre = "";
+        boolean vete = false;
+        do {
+            for (int i = 0; i < 3; i++) {
+                System.out.println(pregunta);
+                respuestaPre = scan.nextLine();
+                //Comprueba si la respuesta qeu a escrito es igual a la respuesta correcta
+                if (respuestaPre.equals(respuesta)) {
+                    System.out.println("Pon tu nueva contraseña");
+                    for (int j = 0; j < 3; j++) {
+                        contrasenaNueva = scan.nextLine();
+                        /*
+                        Comprueba si contrasena tiene caracteres especiales, si mide 8 caracteres, si hay mayusculas, si hay
+                        mminusculas y si hay numeros
+                         */
+                        if (hayEspecial(contrasenaNueva) && contrasenaNueva.length() >= 8 && hayMayus(contrasenaNueva) &&
+                                hayMinus(contrasenaNueva) && hayNum(contrasenaNueva)) {
+                            System.out.println("Ponme otra vez la contraseña que  has escrito");
+                            for (int e = 0; e < 3; e++) {
+                                compContrasena = scan.nextLine();
+                                //Devuelve a repetir que pongas la contrasena para que se canvie.
+                                if (compContrasena.equals(contrasenaNueva)) {
+                                    contrasena = contrasenaNueva;
+                                    return contrasena;
+                                    //Si lo intentas tres veces y no funciona te saca y no habras cambieado la contraseña
+                                } else if (e == 2) {
+                                    contrasena = "";
+                                    vete = true;
+                                    System.out.println("La has puesto mal demasiadas veces");
+                                    return contrasena;
+                                } else {
+                                    System.out.println("vuelve a intentarlo");
+                                }
+                            }
+                        } else if (j == 2) {
+                            System.out.println("demasiados intentos");
+                            return contrasena;
+                        } else {
+                            System.out.println("vuelve a intentarlo");
+                        }
+                    }
+                    System.out.println("Confirma la nueva contraseña");
+                } else {
+                    System.out.println(" vuelve a intentarlo");
+                    if (i == 2) {
+                        return contrasena;
+                    }
+                }
+            }
+        } while (next);
+
+        vete = false;
+        return contrasenaNueva;
     }
 
     /**
@@ -289,84 +359,6 @@ public class Validaciones {
         return true;
     }
 
-    //1. Gestión de usuario
-
-    /**
-     * Login
-     * @param nameUsers
-     * @return true si el usuario se h alogueado correctamente y devuelve false en caso contrario
-     */
-
-    public static boolean loginAdmin(ArrayList<Clase_user> nameUsers){
-
-        Scanner sc = new Scanner(System.in);
-        String nameL = "";
-        String contraL = "";
-        boolean logueo = false;
-        boolean next = false;
-        int cuenta = -1;
-
-        do {
-            //Comprobacion de si estas registrado
-            if (Validaciones.captcha()){
-                for (int i = 0; i < 3; i++) {
-                    System.out.println("Pon el nombre de usuario de un administrador");
-                    nameL = sc.nextLine();
-                    //Recorre todo el array para ver si existe el usuario
-                    for (Clase_user usuario : nameUsers) {
-                        if (nameL.equals(usuario.getUsuario())) {
-                            if (usuario.getRol() == 1) {
-                                for (int j = 3; j > 0; j--) {
-                                    System.out.println("Pon la contraseña");
-                                    contraL = sc.nextLine();
-
-                                    if (contraL.equals(usuario.getPassword())) {
-                                        System.out.println("te has logueado +"+ usuario.getUsuario());
-                                        return true;
-                                    } else if (j == 2) {
-                                        System.out.println("Numero de intentos sobrepasados");
-                                        return false;
-                                    } else {
-                                        System.out.println("Te quedan estos intentos = "+j);
-                                    }
-                                }
-                            } else {
-                                System.out.println("usuario no valido");
-                                return false;
-                            }
-                        }
-                    }
-                    //Comprueba si nameL es igual a nameUser
-                }
-            } else {
-                System.out.println("Se cancelo el login");
-                return false;
-            }
-        } while (next);
-        return false;
-    }
-
-    //1.1 Listar usuarios
-
-    /**
-     * Muesta la información de los usuarios
-     * @param listarUsuarios es el listado de usurios
-     * @return Te devuelve la información de los usuarios
-     */
-
-    public static void listarUsuarios (ArrayList<Clase_user> listarUsuarios){
-        if (listarUsuarios.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
-        } else {
-            System.out.println("\n--- LISTA DE USUARIOS ---");
-            for (Clase_user usuario : listarUsuarios) {
-                usuario.mostrarInfo();
-            }
-        }
-    }
-
-    //1.2 Crear usuario
-
     /**
      * Este método lo que hace es devolver el nombre y apellido del usuario
      * @return String Devuelve el nombre y el apellido
@@ -398,171 +390,6 @@ public class Validaciones {
         String nombreApellidos = nombre + " " + apellido1 + " " + apellido2;
 
         return nombreApellidos;
-    }
-
-    /**
-     * Devuelve al usuario el curso que haya seleccionado
-     *@return curso variable String
-     */
-
-    public static String cursoUsuario(ArrayList<Clase_user> usuarios){
-        Scanner sc= new Scanner(System.in);
-        String elec = "";
-        String curso = "";
-        boolean next = true;
-        boolean admin = false;
-
-        do {
-            System.out.println("Elige al curso que perteneces");
-            System.out.println("1. ESO");
-            System.out.println("2. Grado Medio");
-            System.out.println("3. Soy trabajador");
-            elec = sc.nextLine();
-
-            switch (elec) {
-                case "1":
-                    do {
-                        System.out.println("Selecciona a ESO perteneces");
-                        System.out.println("1. 1ºESO");
-                        System.out.println("2. 2ºESO");
-                        System.out.println("3. 3ºESO");
-                        System.out.println("4. 4ºESO");
-                        System.out.println("5. No es lo que quería seleccionar");
-                        elec = sc.nextLine();
-
-                        switch (elec) {
-                            case "1":
-                                System.out.println("Eres de 1ºESO");
-                                curso = "1ªESO";
-                                next = false;
-                                break;
-                            case "2":
-                                System.out.println("Eres de 2ºESO");
-                                curso = "2ªESO";
-                                next = false;
-                                break;
-                            case "3":
-                                System.out.println("Eres de 3ºESO");
-                                curso = "3ªESO";
-                                next = false;
-                                break;
-                            case "4":
-                                System.out.println("Eres de 4ºESO");
-                                curso = "4ªESO";
-                                next = false;
-                                break;
-                            case "5":
-                                next = false;
-                                break;
-                            default:
-                                System.out.println("No has seleccionado nada");
-                                next = true;
-                                break;
-                        }
-                    } while (next);
-                    break;
-                case "2":
-                    do {
-                        System.out.println("Selecciona el año junto a su grado medio");
-                        System.out.println("1. 1ºAño GM Informatica");
-                        System.out.println("2. 2ºAño GM Informatica");
-                        System.out.println("3. 1ºAño GM Jardinería");
-                        System.out.println("4. 2ºAño GM Jardinería");
-                        System.out.println("5. No es lo que quería seleccionar");
-                        elec = sc.nextLine();
-
-                        switch (elec) {
-                            case "1":
-                                curso = "1ºAño GM Informatica";
-                                next = false;
-                                break;
-                            case "2":
-                                curso = "2ºAño GM Informatica";
-                                next = false;
-                                break;
-                            case "3":
-                                curso = "1ºAño GM Jardinería";
-                                next = false;
-                                break;
-                            case "4":
-                                curso = "2ºAño GM Jardinería";
-                                next = false;
-                                break;
-                            case "5":
-                                next = false;
-                                break;
-                            default:
-                                next = true;
-                                break;
-                        }
-
-                    } while (next);
-                    break;
-                case "3":
-
-                    do {
-                        System.out.println("1. Crear Profesor, director, etc.");
-                        System.out.println("2. Crear un admin");
-                        System.out.println("3. Crear cociner@");
-                        System.out.println("3. No es lo que quería seleccionar");
-                        elec = sc.nextLine();
-
-                        switch (elec) {
-                            case "1":
-                                curso = "Trabajador";
-                                next = false;
-                                break;
-                            case "2":
-                                System.out.println("Pon la contraseña del administrador");
-                                elec = sc.nextLine();
-                                for (int i = 3; i > 0; i--) {
-                                    if (elec.equals(contrasenaAdmin(usuarios, "admin"))) {
-                                        do {
-                                            System.out.println("¿Estas seguro?");
-                                            System.out.println("SI");
-                                            System.out.println("NO");
-                                            elec = sc.nextLine();
-
-                                            switch (elec) {
-                                                case "SI":
-                                                    curso = "Admin";
-                                                    return curso;
-                                                case "NO":
-                                                    next = true;
-                                                    admin = false;
-                                                    i = 0;
-                                                    break;
-                                                default:
-                                                    System.out.println("Tienes que seleccionar una de las dos opciones");
-                                                    admin = true;
-                                                    break;
-                                            }
-                                        }while (admin);
-                                    } else if (i == 0){
-                                        System.out.println("Numero de intentos maximo");
-                                        break;
-                                    } else {
-                                        System.out.println("Contraseña incorrecta, te quedan "+ i +" intentos");
-                                        System.out.println("Vuelve a intentarlo");
-                                        elec = sc.nextLine();
-                                    }
-
-                                }
-                            case "3":
-                                curso = "Conina";
-                                next = false;
-                                break;
-                            case "4":
-                                next = false;
-                                break;
-                        }
-                    } while (next);
-            }
-        } while (curso.length()<3);
-
-        System.out.println("Curso seleccionado = "+curso +"\n");
-
-        return curso;
     }
 
     /**
@@ -681,30 +508,6 @@ public class Validaciones {
         return contrasena;
     }
 
-    //ALERGIAS
-
-    /**
-     * Esta Validación lo que hace es pedir las alergias que tiene el usuario
-     * @return Devuelve las alergias qeu tiene el usuario
-     */
-
-    public static String[] alergiasUsuario(){
-        Scanner sc = new Scanner(System.in);
-        boolean next = true;
-        String[] alergias = new String[50];
-
-        System.out.println("Ingrese sus lergias, cuando las pongas todas pon terminado");
-
-        for (int i = 0; i < 50; i++) {
-            String alergia = sc.nextLine();
-            if (alergia.equalsIgnoreCase("terminado")) {
-                break;
-            }
-            alergias[i] = alergia;
-        }
-        return alergias;
-    }
-
     //Fecha
 
     /**
@@ -712,550 +515,157 @@ public class Validaciones {
      * @return Fecha de usuario
      */
 
-    public static LocalDate validarFecha(){
-        Scanner sc = new Scanner(System.in);
-        LocalDate fecha = null;
-        LocalDate hoy = LocalDate.now();
-        int anoActual = hoy.getYear();
-
-        String selec = "";
-        int anoU = 0;
-        int mesU = 0;
-        int diaU = 0;
+    public static String validarFecha() {
+        Scanner scan = new Scanner(System.in);
         boolean next = true;
-        //AÑO
+        int diaU = 0;
+        int mesU = 0;
+        int anoU = 0;
+        int dia = 19;
+        int mes = 11;
+        int ano = 2024;
+        String fecha = "";
+        String esc;
+        int anoF = 0;
+        boolean mayor = false;
+        boolean dudamayor = false;
 
         do {
-            System.out.println("Pon tu año de nacimiento");
-            selec = sc.nextLine();
 
-            if (Validaciones.soloNum(selec)){
-                anoU = Integer.parseInt(selec);
-                if (anoU < 1950 || anoU > anoActual) {
-                    System.out.println("Año no valido");
-                    next = true;
+            //AÑO
+            do {
+                System.out.println("Escribe tu año de nacimiento");
+                esc = scan.nextLine();
+                //Si son todos numeros  y mide cuatro caracteristicas pasa, si no no te deja pasar y volvera al bucle
+                if (esc.length() == 4 && soloNum(esc)){
+                    //Aqui pasa de String a Int y comprueba si es un año entre 2025 y 1950, si no esta te hace repetir el año
+                    anoU = Integer.parseInt(esc);
+                    if (anoU >=2025 || anoU <= 1950){
+                        System.out.println("Año no valido");
+                        next = true;
+                    } else {
+                        //Calcula la edad que tienes y se le pone la edad en la variable anoF
+                        anoF = ano - anoU;
+                        //Si tu edad es 17 puede que si seas mayor, por eso se te pone la variable dudamayor
+                        if (anoF == 17){
+                            System.out.println("Puede que seas mayor de edad");
+                            dudamayor = true;
+                            next = false;
+                                /*
+                                Dice que eres mayor, porque la variable anoF es mayor o igual a 18, pero mas adelante puede
+                                que se demuestre que no eres mayor de edad porque el mes o el dia en el que nacio aun no a llegadp
+                                 */
+                        } else if (anoF >= 18){
+                            System.out.println("Eres mayor de edad, pero puede que no lo seas");
+                            mayor = true;
+                            next = false;
+                            //Si tu edad es menor de 17 te hecha dle bucle y te saca de la funcion poniendo que mayor es false
+                        } else {
+                            System.out.println("eres menor de edad");
+                            next = false;
+                            mayor = false;
+                        }
+                    }
+
                 } else {
-                    System.out.println("Tu año es = "+anoU);
-                    next = false;
+                    System.out.println("año no valida");
+                    next = true;
                 }
-            } else {
-                System.out.println("Tiene que ser solo números");
-                next = true;
-            }
-        } while (next);
+            } while (next);
+            //Comprueban las variables de mayor y dudamayor, para ver si te hecha al registro, para que te heche al menu principal
+            if (mayor || dudamayor){
 
-        //MES
+            } else return fecha;
 
-        do {
-            System.out.println("Pon tu mes de nacimiento");
-            selec = sc.nextLine();
+            //MES
 
-            if (Validaciones.soloNum(selec)){
-                mesU = Integer.parseInt(selec);
-                if (mesU < 1 || 12 < mesU ) {
+            do {
+                System.out.println("Pon tu mes de nacimiento");
+                System.out.println("Si se dice tu dia con solo un numero pon 0(numero que quieras)");
+                esc = scan.nextLine();
+                //Si son todos numeros  y mide dos caracteristicas pasa, si no no te deja pasar y volvera al bucle
+                if (esc.length() == 2 && soloNum(esc)){
+                    mesU = Integer.parseInt(esc);
+                    //Al convertirse de String a Int se comprueba si esta en un mes valido entre el 1 y el 12.
+                    if (mesU >= 1 && mesU <= 12) {
+                        //Si tienes 18 comprueba si tu mes de nacimiento es mayor al mes actual y si lo es te hecha
+                        if (anoF == 18 && mesU > mes) {
+                            return fecha;
+                            //Si la variable mayor es verdad te deja pasar sin probblema al siguiente bucle, sacandote primero de este
+                        } else  if (mayor) {
+                            next = false;
+                            //Si duduamayor es verdad y mesU es igual a mesdudamayor sigue estando en true y sales del bucle
+                        } else if (dudamayor && mesU == mes){
+                            dudamayor = true;
+                            next = false;
+                            //Si no es ninguna de estas sales del bucle y mesU es 0
+                        } else {
+                            mesU = 0;
+                            mayor = false;
+                            next = false;
+                        }
+                    } else {
+                        System.out.println("no es un mes valido");
+                        next = true;
+                    }
+                } else {
                     System.out.println("mes no valido");
                     next = true;
-                } else {
-                    System.out.println("Tu mes es = "+mesU);
-                    next = false;
                 }
-            } else {
-                System.out.println("Tiene que ser solo números");
-                next = true;
-            }
+            } while (next);
+
         } while (next);
 
-        //Esto sirve para saber la longitud del mes.
-        //Primero ponemos los valores del año y el mes en fecha
-        fecha = LocalDate.of(anoU,mesU,1);
+        if (mayor || dudamayor) {
 
-        //Ahora se le pide que diga la longitud del mes
-        int longitudMesActual = fecha.lengthOfMonth();
+        } else return fecha;
 
-        //DÍA
+        //DIA
 
         do {
-            System.out.println("Pon tu día de nacimiento");
-            selec = sc.nextLine();
-
-            if (Validaciones.soloNum(selec)){
-                diaU = Integer.parseInt(selec);
-                if (diaU < 1 || diaU > longitudMesActual) {
-                    System.out.println("Día no valido");
-                    next = true;
+            System.out.println("Escribe el dia en el que naciste");
+            System.out.println("Si tu dia es solo un numero pon 0(numero que sea)");
+            esc = scan.nextLine();
+            //Si son todos numeros  y mide dos caracteristicas pasa, si no no te deja pasar y volvera al bucle
+            if (esc.length() == 2 && soloNum(esc)) {
+                diaU = Integer.parseInt(esc);
+                //Comprueba de que este diaU entre el 0 y el 31
+                if (diaU >= 0 && diaU <= 31){
+                    //Si tienes 18 años y tu mes es mayor o igual y si diaU es mayor a dia te expulsa al menu principal
+                    if (anoF == 18 && mesU >= mes && diaU > dia) {
+                        return fecha;
+                        //Si dudamayor esta en true y diaU es mayr o igual a dia es que eres mayor y te sacan del bucle
+                    } else if (dudamayor && diaU >= dia) {
+                        mayor = true;
+                        System.out.println("eres mayor");
+                        next = false;
+                        //Si mayor es true te saca del bucle
+                    } else if (mayor){
+                        System.out.println("eres mayor");
+                        next = false;
+                        //Si no se hace nada de atras mayor se cnvierte en falso, haciendo de que el siguiente te hechara
+                    } else {
+                        mayor = false;
+                        next = false;
+                    }
                 } else {
-                    System.out.println("Tu día es = "+diaU);
-                    next = false;
+                    System.out.println("No es un dia valido");
+                    next = true;
                 }
             } else {
-                System.out.println("Tiene que ser solo números");
+                System.out.println("dia no valido");
                 next = true;
             }
         } while (next);
-        fecha = LocalDate.of(anoU, mesU,diaU);
-        System.out.println(fecha);
+
+        //Si no eres mayor te saca del bucle
+        if (mayor) {
+
+        } else return fecha;
+
+
+        fecha = diaU + "/" + mesU + "/" + anoU;
+
         return fecha;
-    }
-
-    public static int rolUsuario(String curso) {
-        int rol = 0;
-        if (curso.equalsIgnoreCase(rolEsoGm(curso)) || curso.equalsIgnoreCase(rolTrabajadores(curso))) {
-            return rol = 3;
-        } else if (curso.equalsIgnoreCase(rolCocina(curso))) {
-            return rol = 2;
-        } else if (curso.equalsIgnoreCase(rolAdmin(curso))) {
-            return rol = 1;
-        }
-        return 0;
-    }
-
-    public static boolean tienesalergias(){
-        Scanner sc = new Scanner(System.in);
-        String elec;
-        boolean next = true;
-
-        System.out.println("¿Tienes alergias?");
-        System.out.println("Si o no");
-        elec = sc.nextLine();
-
-        do {
-            if (elec.equalsIgnoreCase("si")) {
-                return true;
-            } else if (elec.equalsIgnoreCase("no")) {
-                return false;
-            } else {
-                System.out.println("Tienes que escribir una de las dos opciones");
-                next = true;
-            }
-        }while (next);
-        return false;
-    }
-
-    /**
-     * Sirve para crear a los usuarios
-     * @param usuarios es el listado de usuarios
-     */
-
-    public static void agregarUsuarios(ArrayList<Clase_user> usuarios){
-        String[] alergias;
-
-        //Nombre y apellidos del usuario
-
-        String nombre = nombreApellidos();
-
-        //Nombre de usuario
-
-        String usuario = validarUsuario();
-
-        //Correo de usuario
-
-        String correo = validarGmail();
-
-        //Curso de usuario
-
-        String curso = cursoUsuario(usuarios);
-
-        //Contraseña de usuario
-
-        String contrasena = validarContrasena();
-
-        //Alergias
-
-        boolean alergico = tienesalergias();
-        if (alergico) {
-            alergias = alergiasUsuario();
-        } else {
-            alergias = null;
-        }
-
-
-        //Fecha de usuario
-
-        LocalDate fecha_nacimiento = validarFecha();
-
-        //ROL
-
-        int rol = rolUsuario(curso);
-
-        //VARIABLES QUE NO SE HACEN AQUÍ,
-
-        usuarios.add(new Clase_user(nombre, usuario, correo, curso, contrasena, alergico, alergias, fecha_nacimiento, rol));
-
-    }
-
-    //2. Gestionar Bocadillos
-
-    //2.1 Listar bocadillos disponibles
-
-    /**
-     * Te muestra los bocadillos que hay
-     * @param bocatas La clase de los bocadillos que va a mirar
-     */
-    public static void listarbocadillos(ArrayList<Clase_bocatas> bocatas){
-        if (bocatas.isEmpty()) {
-            System.out.println("No hay bocatas registrados.");
-        } else {
-            System.out.println("\n--- LISTA DE bocatas ---");
-            for (Clase_bocatas bocata : bocatas) {
-                bocata.mostrarinfo();
-            }
-        }
-    }
-
-    /**
-     * Busca un bocata con el nombreBocata que hayas utilizado y te dice si lo ha encontradp
-     * @param bocatas Clase a la que se buscan los bocatas
-     * @param nombreBocata El nombre del bocata que se busca
-     * @return devuelve true si .lo encontro y false si no lo ha encontrado
-     */
-
-    public static boolean buscarbocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
-        for (Clase_bocatas bocata : bocatas) {
-            if (nombreBocata.equalsIgnoreCase(bocata.getNombre())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Pide la curiosidad del bocata que se haya elegíado
-     * @param bocatas La clase de los bocadillos
-     * @param nombreBocata el nombre del bocata
-     */
-
-    public static void dameCuriosidadBocata(ArrayList<Clase_bocatas> bocatas, String nombreBocata){
-        for (Clase_bocatas bocata : bocatas) {
-            if (nombreBocata.equalsIgnoreCase(bocata.getNombre())) {
-                bocata.mostrarCuriosidades();
-            }
-        }
-    }
-
-    /**
-     * Sirve para mirar la curiosidad del bocata
-     * @param bocatas Es la clase a la que va a buscar el bocata
-     */
-
-    public static void verCuriosidaBocata(ArrayList<Clase_bocatas> bocatas){
-        Scanner sc=new Scanner(System.in);
-        String elec = "";
-        System.out.println("¿Cual es el bocata que te entra curiosidad saber su curiosidad?");
-         elec = sc.nextLine();
-
-        if (buscarbocata(bocatas, elec)) {
-            dameCuriosidadBocata(bocatas, elec);
-        } else {
-            System.out.println("El bocata no ha sido encontrado");
-        }
-    }
-
-    //3 REALIZAR PEDIDO
-
-    //3.1 SELECCIONAR USUARIO
-
-    /**
-     * Logueo de los usuarios
-     * @param usuarios La clase que se va a buscar el usuario
-     * @return user que es el nombre del usuario
-     */
-
-    public static String loginUser(ArrayList<Clase_user> usuarios){
-        Scanner sc = new Scanner(System.in);
-        String user = "";
-        String contrasena = "";
-        boolean next = false;
-
-        System.out.println("Elige tu usuario: ");
-
-        do {
-            user = sc.nextLine();
-            for (Clase_user usuario : usuarios) {
-                if (user.equalsIgnoreCase(usuario.getUsuario())) {
-                    System.out.println("Pon la contrasña del usuario: ");
-                    for (int i = 3; i > 0; i--) {
-                        contrasena = sc.nextLine();
-                        if (contrasena.equals(usuario.getPassword())) {
-                            return usuario.getUsuario();
-                        } else if (i == 0) {
-                            System.out.println("Intentos agotados");
-                            return null;
-                        } else {
-                            System.out.println("Intentalo de nuevo, te quedan "+i+" intentos");
-                        }
-                    }
-                } else {
-                    next = true;
-                }
-            }
-            System.out.println("Intentalo de nuevo");
-        } while (next);
-        return null;
-    }
-
-    //3.2 ELEGIR BOCADILLO
-
-    /**
-     * Comprueba los alergenos que tiene
-     * @param bocatas la clase donde estan los bocatas
-     * @param nombreUser el nombre del suuario
-     * @param usuarios ña clae donde estan los usuarios
-     * @return devuelve true si encuentra una alergia que le pueda afectar al usuario, si no devuelve false
-     */
-
-    public static boolean comprobarAlergias(ArrayList<Clase_bocatas> bocatas, String nombreUser, ArrayList<Clase_user> usuarios){
-        for (Clase_bocatas bocata : bocatas) {
-            for (Clase_user usuario : usuarios) {
-                if (usuario.getUsuario().equalsIgnoreCase(nombreUser)) {
-                    for (int i = 0; i < usuario.getAlergias().length; i++) {
-                        for (int j = 0; j < bocata.getAlergenos().length; j++) {
-                            if (usuario.getAlergias()[i].equalsIgnoreCase(bocata.getAlergenos()[j])) {
-                                System.out.println("No puedes pedir este bocata, el bocata tiene este alérgeno: "+bocata.getAlergenos()[j]);
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Este metodo sirve para procesar el pedido
-     * @param bocatas la clase de los bocatas
-     * @param user el nombre del usuario
-     * @param usuarios la clase de los usuarios
-     * @param pedidos la clase de los pedidos
-     * @param elec es lo que a elegido el usuario
-     */
-
-    public static void procesarPedido(ArrayList<Clase_bocatas> bocatas, String user, ArrayList<Clase_user> usuarios, ArrayList<Clase_pedidos> pedidos, String elec, boolean caliente){
-        Scanner sc = new Scanner(System.in);
-        boolean alergico = false;
-        String bocataPedido = "";
-        boolean next = false;
-
-        for (Clase_user usuario: usuarios) {
-            if (usuario.getUsuario().equalsIgnoreCase(user)) {
-                alergico = usuario.getAlergico();
-                for (Clase_bocatas bocata : bocatas) {
-                    if (elec.equalsIgnoreCase(bocata.getNombre()) && caliente==true) {
-                        System.out.println("Bocata eleido :"+ bocata.getNombre()+"\nY es un bocata caliente");
-                        if (alergico){
-                            System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
-                            if (comprobarAlergias(bocatas, user, usuarios)) {
-                                System.out.println("No puedes pedir este bocata, por tus alergias");
-                            } else {
-                                elec = bocataPedido;
-
-                                System.out.println("¿Quieres seguir con la compra?");
-                                System.out.println("SI");
-                                System.out.println("NO");
-                                elec = sc.nextLine();
-
-                                do {
-                                    if (elec.equalsIgnoreCase("si")) {
-                                        System.out.println("Pedido realizado");
-                                        pedidos.add(new Clase_pedidos (pedidos.getLast().getId_pedido()+1, usuario.getUsuario(),bocata.getId(),LocalDate.now(),"Pendiente"));
-                                        next = false;
-                                    } else if (elec.equalsIgnoreCase("no")) {
-                                        System.out.println("Bocadillo cancelado");
-                                        next = false;
-                                    } else {
-                                        System.out.println("Tienes que elegir una opcion");
-                                        next = true;
-                                    }
-                                } while (next);
-                            }
-                        } else {
-                            elec = bocataPedido;
-
-                            System.out.println("¿Quieres seguir con la compra?");
-                            System.out.println("SI");
-                            System.out.println("NO");
-
-                            do {
-                                elec = sc.nextLine();
-                                if (elec.equalsIgnoreCase("si")) {
-                                    System.out.println("Pedido realizado");
-                                    pedidos.add(new Clase_pedidos (pedidos.getLast().getId_pedido()+1, usuario.getUsuario(),bocata.getId(),LocalDate.now(),"Pendiente"));
-                                    next = false;
-                                    break;
-                                } else if (elec.equalsIgnoreCase("no")) {
-                                    System.out.println("Bocadillo cancelado");
-                                    next = false;
-                                } else {
-                                    System.out.println("Tienes que elegir una opcion");
-                                    next = true;
-                                }
-                            } while (next);
-                        }
-                    } else if (elec.equalsIgnoreCase(bocata.getNombre()) && caliente==false) {
-                        System.out.println("Bocata eleido :"+ bocata.getNombre()+"\nY es un bocata frio");
-                        if (alergico){
-                            System.out.println("\nSe comprobará si tiene alergenos que te puedan afectar");
-                            if (comprobarAlergias(bocatas, user, usuarios)) {
-                                System.out.println("No puedes pedir este bocata, por tus alergias");
-                            } else {
-                                elec = bocataPedido;
-
-                                System.out.println("¿Quieres seguir con la compra?");
-                                System.out.println("SI");
-                                System.out.println("NO");
-                                elec = sc.nextLine();
-
-                                do {
-                                    if (elec.equalsIgnoreCase("si")) {
-                                        System.out.println("Pedido realizado");
-                                        pedidos.add(new Clase_pedidos (pedidos.getLast().getId_pedido()+1, usuario.getUsuario(),bocata.getId(),LocalDate.now(),"Pendiente"));
-                                        next = false;
-                                    } else if (elec.equalsIgnoreCase("no")) {
-                                        System.out.println("Bocadillo cancelado");
-                                        next = false;
-                                    } else {
-                                        System.out.println("Tienes que elegir una opcion");
-                                        next = true;
-                                    }
-                                } while (next);
-                            }
-                        } else {
-                            elec = bocataPedido;
-
-                            System.out.println("¿Quieres seguir con la compra?");
-                            System.out.println("SI");
-                            System.out.println("NO");
-
-                            do {
-                                elec = sc.nextLine();
-                                if (elec.equalsIgnoreCase("si")) {
-                                    System.out.println("Pedido realizado");
-                                    pedidos.add(new Clase_pedidos (pedidos.getLast().getId_pedido()+1, usuario.getUsuario(),bocata.getId(),LocalDate.now(),"Pendiente"));
-                                    next = false;
-                                    break;
-                                } else if (elec.equalsIgnoreCase("no")) {
-                                    System.out.println("Bocadillo cancelado");
-                                    next = false;
-                                } else {
-                                    System.out.println("Tienes que elegir una opcion");
-                                    next = true;
-                                }
-                            } while (next);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * pide al usuario que elija el bocata.
-     * @param bocatas clase a la que se coge los bocatas
-     */
-
-    public static void elegirBocata(ArrayList<Clase_bocatas> bocatas, String user, ArrayList<Clase_user> usuarios, ArrayList<Clase_pedidos> pedidos, ArrayList<Calendario> calendarios){
-        Scanner sc = new Scanner(System.in);
-        String elec = "";
-        boolean next = false;
-        boolean caliente = false;
-        ArrayList<String> nombreBocatas = new ArrayList<>();
-        int numero = 1;
-
-        System.out.println("Elige el bocata que quieras");
-        System.out.println("Si hay acentos, tienes que ponerlos si o si");
-        for (Calendario cal: calendarios) {
-            int numeroLista = 1;
-            System.out.println("BOCADILLOS FRIOS");
-            System.out.println("Numero de la lista: "+ numeroLista);
-            for (int j = 0; j < cal.getBocadillo_quincena_frios().length; j++) {
-                System.out.println("----"+cal.getBocadillo_quincena_frios()[j]);
-                System.out.println("------------------------------------");
-                nombreBocatas.add(cal.getBocadillo_quincena_frios()[j]);
-            }
-            numeroLista++;
-            System.out.println("\nBOCADILLOS CALIENTES");
-            System.out.println("Numero de la lista: "+ numeroLista);
-            for (int j = 0; j < cal.getBocadillo_quincena_calientes().length; j++) {
-                System.out.println("----"+cal.getBocadillo_quincena_calientes()[j]);
-                System.out.println("------------------------------------");
-                nombreBocatas.add(cal.getBocadillo_quincena_calientes()[j]);
-            }
-        }
-        numero = 1;
-        do {
-            elec = sc.nextLine();
-            switch (elec) {
-                case "1":
-                    System.out.println("Ahora elije el bocata");
-                    for (Calendario cal : calendarios) {
-                        for (int j = 0; j < cal.getBocadillo_quincena_frios().length; j++) {
-                            System.out.println((numero++)+". "+cal.getBocadillo_quincena_frios()[j]);
-                            System.out.println("------------------------------------");
-                            nombreBocatas.add(cal.getBocadillo_quincena_frios()[j]);
-                        }
-                    }
-
-                    do {
-                        elec = sc.nextLine();
-
-                        switch (elec) {
-                            case "1":
-                                elec = nombreBocatas.get(1);
-                                procesarPedido(bocatas, user, usuarios, pedidos, elec,caliente);
-                                next = false;
-                                break;
-                            case "2":
-                                elec = nombreBocatas.get(2);
-                                procesarPedido(bocatas, user, usuarios, pedidos, elec,caliente);
-                                next = false;
-                                break;
-                            default:
-                                System.out.println("Tienes que seleccionar uno");
-                                next = true;
-                                break;
-                        }
-                    }while (next);
-                    procesarPedido(bocatas, user, usuarios, pedidos, elec,caliente);
-                    next = false;
-                    break;
-                case "2":
-                    caliente = true;
-                    for (Calendario cal : calendarios) {
-                        System.out.println("Ahora elije el bocata");
-                        for (int j = 0; j < cal.getBocadillo_quincena_calientes().length; j++) {
-                            System.out.println((numero++)+". "+cal.getBocadillo_quincena_calientes()[j]);
-                            System.out.println("------------------------------------");
-                            nombreBocatas.add(cal.getBocadillo_quincena_calientes()[j]);
-                        }
-                    }
-                    do {
-                        elec = sc.nextLine();
-
-                        switch (elec) {
-                            case "1":
-                                elec = nombreBocatas.get(1);
-                                procesarPedido(bocatas, user, usuarios, pedidos, elec,caliente);
-                                next = false;
-                                break;
-                            case "2":
-                                elec = nombreBocatas.get(2);
-                                procesarPedido(bocatas, user, usuarios, pedidos, elec,caliente);
-                                next = false;
-                                break;
-                            default:
-                                System.out.println("Tienes que seleccionar uno");
-                                next = true;
-                                break;
-                        }
-                    }while (next);
-                    next = false;
-                    break;
-                default:
-                    System.out.println("Tienes que seleccionar una opcion");
-                    next = true;
-                    break;
-            }
-        }while (next);
-
     }
 }

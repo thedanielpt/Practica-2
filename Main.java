@@ -1,11 +1,5 @@
-package Practica3;
-import Practica3.clase.Calendario;
-import Practica3.clase.Clase_bocatas;
-import Practica3.clase.Clase_pedidos;
-import Practica3.clase.Clase_user;
+package Practica2;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -23,266 +17,422 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        //REGISTRO
 
-        //Arrays clases
+        //NOMBRE
+        String name = "";
 
-        ArrayList<Clase_user> usuarios = new ArrayList<>();
-        ArrayList<Clase_bocatas> bocatas = new ArrayList<>();
-        ArrayList<Clase_pedidos> pedidos = new ArrayList<>();
-        ArrayList<Calendario> calendarios = new ArrayList<>();
+        //APELLIDOS
+        String apellido1 = "";
+        String apellido2 = "";
 
-        //USUARIO ADMIN
+        //Nombre Usuario
+        String nameUser = "";
 
-        usuarios.add(new Clase_user("admin","admin", "admin@gmail.com", "admin", "Admin_1",false, new String[50], LocalDate.of(2006,03,29), 1));
-        usuarios.add(new Clase_user("daniel","admin", "admin@gmail.com", "admin", "Daniel_1",false, new String[50], LocalDate.of(2006,03,29), 1));
+        //Fecha
+        String diaU = "";
+        String mesU = "";
+        String anoU = "";
+        String diaUo;
+        String mesUo;
+        String anoUo;
+        String dia = 14 + "";
+        String mes = 11 + "";
+        String ano = 2024 + "";
+        String fecha = "";
+        int edad = 0;
 
-        //USUARIOS ESO
+        //Contraseña
+        String contrasena = "";
+        String compContrasena = "";
+        String contrasenaNueva = "";
+        String contrasenaguardada = "";
 
-        usuarios.add(new Clase_user("daniel_1", "Carlos Pérez", "carlos4eso@email.com", "4ºESO", "Daniel_1",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2009, 5, 14), 3));
-        usuarios.add(new Clase_user("user2_4ESO", "Marta López", "marta4eso@email.com", "4ºESO", "Pass_2",false, new String[50], LocalDate.of(2009, 8, 22), 3));
+        //DNI / NIE
+        String dniNum = "";
+        String dniletra = "";
+        String letNie = "";
+        String id = "";
 
-        usuarios.add(new Clase_user("user1_3ESO", "Luis Gómez", "luis3eso@email.com", "3ºESO", "Pass_3",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2010, 3, 10), 3));
-        usuarios.add(new Clase_user("user2_3ESO", "Ana Ramírez", "ana3eso@email.com", "3ºESO", "Pass_4",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2010, 11, 5), 3));
+        //Gmail
+        String gmail = "";
 
-        usuarios.add(new Clase_user("user1_2ESO", "Pedro Fernández", "pedro2eso@email.com", "2ºESO", "Pass_5",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2011, 7, 19), 3));
-        usuarios.add(new Clase_user("user2_2ESO", "Lucía Sánchez", "lucia2eso@email.com", "2ºESO", "Pass_6",false, new String[50], LocalDate.of(2011, 2, 25), 3));
+        //INICIO DE SESION
+        String nameL;
+        String contraL;
 
-        usuarios.add(new Clase_user("user1_1ESO", "Daniel Ruiz", "daniel1eso@email.com", "1ºESO", "Pass_7",false, new String[50], LocalDate.of(2012, 9, 30), 3));
-        usuarios.add(new Clase_user("user2_1ESO", "Sara Torres", "sara1eso@email.com", "1ºESO", "Pass_8",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2012, 6, 18), 3));
-
-        //USUARIOS GRADO MEDIO
-
-        usuarios.add(new Clase_user("user1_GMInfo1", "Javier Ortega", "javierinfo1@email.com", "1ºAño GM Informática", "Pass_9",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2007, 12, 1), 3));
-        usuarios.add(new Clase_user("user2_GMInfo1", "Laura Medina", "laurainfo1@email.com", "1ºAño GM Informática", "Pass_10",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2007, 4, 15), 3));
-
-        usuarios.add(new Clase_user("user1_GMInfo2", "Manuel Castillo", "manuelinfo2@email.com", "2ºAño GM Informática", "Pass_11",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2006, 8, 27), 3));
-        usuarios.add(new Clase_user("user2_GMInfo2", "Paula Reyes", "paulainfo2@email.com", "2ºAño GM Informática", "Pass_12",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2006, 11, 3), 3));
-
-        usuarios.add(new Clase_user("user1_GMJard1", "Sergio Márquez", "sergiojard1@email.com", "1ºAño GM Jardinería", "Pass_13",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2007, 1, 9), 3));
-        usuarios.add(new Clase_user("user2_GMJard1", "Elena Navarro", "elenajard1@email.com", "1ºAño GM Jardinería", "Pass_14",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2007, 5, 22), 3));
-
-        usuarios.add(new Clase_user("user1_GMJard2", "Iván Herrera", "ivanjard2@email.com", "2ºAño GM Jardinería", "Pass_15",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2006, 10, 6), 3));
-        usuarios.add(new Clase_user("user2_GMJard2", "Natalia Rojas", "nataliajard2@email.com", "2ºAño GM Jardinería", "Pass_16",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(2006, 2, 14), 3));
-
-
-        //USUARIOS TRABAJADOR
-
-        usuarios.add(new Clase_user("user1_Trabajador", "Fernando Gutiérrez", "fernandotrabajo@email.com", "Trabajador", "Pass_17",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(1985, 7, 25), 3));
-        usuarios.add(new Clase_user("user2_Trabajador", "Andrea Suárez", "andreatrabajo@email.com", "Trabajador", "Pass_18",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(1990, 12, 13), 3));
-
-        //USUARIOS COCINA
-
-        usuarios.add(new Clase_user("user1_Cocina", "Raúl Montes", "raulcocina@email.com", "Cocina", "Pass_19",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(1982, 3, 8), 2));
-        usuarios.add(new Clase_user("user2_Cocina", "Isabel Domínguez", "isabelcocina@email.com", "Cocina", "Pass_20",true, new String[] {"Pan fresco", "Salchichón de alta calidad"}, LocalDate.of(1987, 9, 30), 2));
-
-        //BOCATAS
-
-        String[] ingredientes = {"Pan fresco", "Salchichón de alta calidad"};
-        String[] alergenos = {"Gluten", "Lácteos"};
-
-        bocatas.add(new Clase_bocatas(1, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, true));
-        bocatas.add(new Clase_bocatas(2, "Bocadillo de Salchichón", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, false));
-        bocatas.add(new Clase_bocatas(3, "Bocadillo de Merluza", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, false));
-        bocatas.add(new Clase_bocatas(4, "Bocadillo de Merluza", "Un bocadillo delicioso con salchichón de alta calidad y pan crujiente.", ingredientes, alergenos, "Madrid", 3.50, true));
-
-        int numCalientes = 0;
-        int numFrios = 0;
-
-        for (Clase_bocatas bocata : bocatas) {
-            if (bocata.getcaliente()) {
-                numCalientes++;
-            } else {
-                numFrios++;
-            }
-        }
-
-        String[] bocatasCalientes = new String[numCalientes];
-        String[] bocatasfrios = new String[numFrios];
-        int caliente = 0;
-        int frio = 0;
-
-        for (Clase_bocatas bocata : bocatas) {
-            if (bocata.getcaliente()) {
-                bocatasCalientes[caliente] = bocata.getNombre();
-                caliente++;
-            } else {
-                bocatasfrios[frio] = bocata.getNombre();
-                frio++;
-            }
-        }
-        calendarios.add(new Calendario(bocatasCalientes, bocatasfrios));
-
-        //PEDIDO
-
-        pedidos.add(new Clase_pedidos (1, "admin",1,LocalDate.now(),"Pendiente"));
-
-        //ELECCIÓN
-
-        String elec = "";
-
-        //FECHA
-
-        LocalDate hoy = LocalDate.now();
-        int diaHoy = hoy.getDayOfMonth();
-
-        //USUARIO REGISTRADO
-
-        String usuario = "daniel";
-        String contrasena = "Daniel_1";
-
-        //SEGUIR
-
+        //Para salir del do while
         boolean next = true;
 
-        //Aquí empieza el menu principal
+        //Para los saltos
+        String salto;
+
+        //Para afirmar o elegir
+        String conf;
+        String elec;
+
+        //Pregunta
+        String pregunta = "";
+        String respuesta = "";
+        String respuestaPre = "";
+
+        //BLOQUEO
+        boolean block = false;
+        boolean vete = false;
+
         do {
-            System.out.println("Menu Principal\n");
-            System.out.println("1. Gestionar usuarios:");
-            System.out.println("     Listar usuarios");
-            System.out.println("     Añadir nuevo usario");
-            System.out.println("2. Gestionar Bocadillos:");
-            System.out.println("     Listar bocadillos disponibles");
-            System.out.println("     Ver curiosidades de un bocadillo");
-            System.out.println("3. Realizar Pedido:");
-            System.out.println("     Seleccionar usuario");
-            System.out.println("     Eligir Bocadillo");
-            System.out.println("     Confirmar pedido");
-            System.out.println("4. Consultar Pedidos:");
-            System.out.println("     Mostrar pedidos de un usuario");
-            System.out.println("     Marcar pedidos como retirado" );
-            System.out.println("5. Salir");
+            System.out.println("== MENU INICIO ==");
+            System.out.println("1. REGISTRO");
+            System.out.println("2. LOGIN");
+            System.out.println("3. RECUPERACIÓN DE CONTRASEÑA");
+            System.out.println("4. GESTIÓN DE BLOQUEO");
+            System.out.println("0. Salir");
             elec = sc.nextLine();
-            next = true;
+            System.out.println("Selecciona una opción: " + elec);
 
             switch (elec) {
-                case "1":
-                    if (Validaciones.loginAdmin(usuarios)) {
-                        do {
-                            System.out.println("1. Listar usuarios");
-                            System.out.println("2. Añadir nuevo usuario");
-                            System.out.println("3. Volver al menu princiapal");
-                            elec = sc.nextLine();
 
-                            switch (elec) {
+                case "1":
+                    // REGISTRO
+
+                    //CAPTCHA
+                    if (Validaciones.captcha()){
+                        System.out.println("captch completado");
+                    } else {
+                        System.out.println("Se cancelo el registro");
+                        next = true;
+                        break;
+                    }
+
+                    // Creación de nombre
+
+                    //Pasas si validarAlfabetoLat es falso
+                    do {
+                        System.out.println("INTRODUCD EL NOMBRE ");
+                        name = sc.nextLine();
+                    }while (!Validaciones.validarAlfabetoLat(name));
+
+                    //Pasas si validarAlfabetoLat es falso
+                    do {
+                        System.out.println("Introduce el primer apellido: ");
+                        apellido1= sc.nextLine();
+                    }while (!Validaciones.validarAlfabetoLat(apellido1));
+
+                    //Pasas si validarAlfabetoLat es falso
+                    do {
+                        System.out.println("Introduce el segundo apellido: ");
+                        apellido2= sc.nextLine();
+                    }while (!Validaciones.validarAlfabetoLat(apellido2));
+
+                    // Creación de nombre de usuario
+
+                    nameUser = Validaciones.validarUsuario();
+
+                    //CREACIÓN DE FECHA
+
+                    fecha = Validaciones.validarFecha();
+
+                    //Si fecha esta entre los ocho y diez caracteres te deja entrar al if, si no te saca al menu principal
+                    if (fecha.length() >= 8 && fecha.length() <= 10) {
+                        //CREACION DE CONTRASEÑA
+
+                        contrasena = Validaciones.validarContrasena();
+
+                        //CREAR CORREO
+
+                        gmail = Validaciones.validarGmail();
+
+                        //PREGUNTA IMPORTANTE
+
+                        do {
+                            System.out.println("Ahora elige entre estas preguntas de seguridad");
+                            System.out.println("1. ¿Cual es tu comida favorita?");
+                            System.out.println("2. ¿Cual es tu juego favorito?");
+                            System.out.println("3. ¿Cual es tu numero favorito?");
+                            elec = sc.nextLine();
+                            switch (elec){
                                 case "1":
-                                    Validaciones.listarUsuarios(usuarios);
-                                    next = true;
+                                    System.out.println("¿Cual es tu comida favorita?");
+                                    respuesta = sc.nextLine();
+                                    pregunta = "¿Cual es tu comida favorita?";
+                                    next = false;
                                     break;
                                 case "2":
-                                    Validaciones.agregarUsuarios(usuarios);
-                                    next = true;
+                                    System.out.println("¿Cual es tu juego favorito?");
+                                    respuesta = sc.nextLine();
+                                    pregunta = "¿Cual es tu juego favorito?";
+                                    next = false;
                                     break;
                                 case "3":
-                                    System.out.println("Saliendo al menu principal ...");
+                                    System.out.println("¿Cual es tu numero favorito?");
+                                    respuesta = sc.nextLine();
+                                    pregunta = "¿Cual es tu numero favorito?";
                                     next = false;
-                                    usuario = "";
-                                    contrasena = "";
                                     break;
                                 default:
-                                    System.out.println("Tienes que elegir");
+                                    System.out.println("Tienes que elegir una opción");
                                     next = true;
-                                    break;
                             }
                         } while (next);
                     } else {
-                        System.out.println("No puedes loguearte si no eres administrador");
-                        next = false;
+                        System.out.println("No eres mayor de edad");
+                        next = true;
                         break;
                     }
+
+                    next = true;
+                    System.out.println("Usuario registrado");
+                    System.out.println("__________________");
+                    System.out.println("Nombre: " + name);
+                    System.out.println("Apellidos: " + apellido1 + " " + apellido2);
+                    System.out.println("Name usuario: " + nameUser);
+                    System.out.println("Contraseña: " + contrasena);
+                    System.out.println("Fecha: " + fecha);
+                    System.out.println("Gmail " + gmail);
+                    System.out.println("DNI/NIF " + id);
+                    System.out.println("__________________");
+                    System.out.println("");
+                    System.out.println("Pulsa intro cuadno quieras salirte");
+                    block = false;
                     break;
+
                 case "2":
-                    do {
-                        System.out.println("1. Listar bocadillos disponibles");
-                        System.out.println("2. Ver curiosidades de un bocadillo");
-                        System.out.println("3. Volver al menu princiapal");
-                        elec = sc.nextLine();
+                    //LOGIN
 
-                        switch (elec) {
-                            case "1":
-                                Validaciones.listarbocadillos(bocatas);
-                                next = true;
-                                break;
-                            case "2":
-                                Validaciones.verCuriosidaBocata(bocatas);
-                                next = true;
-                                break;
-                            case "3":
-                                next = false;
-                                break;
-                            default:
-                                System.out.println("Tienes que elegir una de las opciones");
-                                next = true;
-                                break;
-                        }
-                    }while (next);
-                case "3":
                     do {
-                        System.out.println("1. Seleccionar usuario");
-                        System.out.println("2. Elegir bocadillo");
-                        System.out.println("3. Confirmar pedido");
-                        System.out.println("4. Volver al menu princiapal");
-                        elec = sc.nextLine();
-
-                        switch (elec) {
-                            case "1":
-                                usuario = Validaciones.loginUser(usuarios);
-                                if (5 <= usuario.length()) {
+                        //Comprobacion de si estas registrado
+                        if (nameUser.length() <= 4 || contrasena.length() <= 7) {
+                            System.out.println("Tienes que registrarte");
+                            next = false;
+                        } else {
+                            if (Validaciones.captcha()){
+                                //Si a fallado el login la variable block pasa de false a true
+                                if (block) {
+                                    System.out.println("Lo siento esta cuenta esta bloqueada");
+                                    next = true;
                                     break;
                                 } else {
-                                   System.out.println("No has podido loguearte");
-                                   usuario = "";
-                                  break;
-                                }
-                            case "2":
-                                do {
-                                    if (5 <= usuario.length()) {
-                                        Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos, calendarios);
-                                        for (int i = 0; i < 10; i++) {
-                                            System.out.println("¿Quieres pedir un bocata mas?");
-                                            System.out.println("SI");
-                                            System.out.println("NO");
-                                            elec = sc.nextLine();
+                                    for (int i = 0; i < 4; i++) {
+                                        System.out.println("Pon el nombre de usuario");
+                                        nameL = sc.nextLine();
+                                        //Comprueba si nameL es igual a nameUser
+                                        if (nameL.equals(nameUser)) {
+                                            System.out.println("Pon la contraseña");
+                                            contraL = sc.nextLine();
+                                            //Comprueba si contraL es igual a contrasena
+                                            if (contraL.equals(contrasena)){
+                                                System.out.println(" Te has logueado");
+                                                do {
+                                                    System.out.println("Menu Principal\n");
+                                                    System.out.println("1. Gestionar usuarios:");
+                                                    System.out.println("     Listar usuarios");
+                                                    System.out.println("     Añadir nuevo usario");
+                                                    System.out.println("2. Gestionar Bocadillos:");
+                                                    System.out.println("     Listar bocadillos disponibles");
+                                                    System.out.println("     Ver curiosidades de un bocadillo");
+                                                    System.out.println("3. Realizar Pedido:");
+                                                    System.out.println("     Seleccionar usuario");
+                                                    System.out.println("     Eligir Bocadillo");
+                                                    System.out.println("     Confirmar pedido");
+                                                    System.out.println("4. Consultar Pedidos:");
+                                                    System.out.println("     Mostrar pedidos de un usuario");
+                                                    System.out.println("     Marcar pedidos como retirado");
+                                                    System.out.println("5. Salir");
+                                                    elec = sc.nextLine();
+                                                    next = true;
 
-                                            if (elec.equalsIgnoreCase("si")) {
-                                                Validaciones.elegirBocata(bocatas, usuario, usuarios, pedidos, calendarios);
-                                            } else if (elec.equalsIgnoreCase("no")) {
-                                                i = 12;
-                                                System.out.println("Eston son los bocatas pedidos:");
-                                                for (Clase_user user : usuarios) {
-                                                    if (usuario.equalsIgnoreCase(user.getUsuario())) {
-                                                        for (Clase_pedidos pedido : pedidos) {
-                                                            if (pedido.getId_usuario().equalsIgnoreCase(user.getUsuario()) && pedido.getFecha().getDayOfMonth() == diaHoy){
-                                                                System.out.println(pedido.mostrarDetallesPedidos());
-                                                                System.out.println("------------------------------");
-                                                            }
-                                                        }
+                                                    switch (elec) {
+                                                        case "1":
+                                                            do {
+                                                                System.out.println("1. Listar usuarios");
+                                                                System.out.println("2. Añadir nuevo usuario");
+                                                                System.out.println("3. Volver al menu princiapal");
+                                                                elec = sc.nextLine();
+
+                                                                switch (elec) {
+                                                                    case "1":
+                                                                        next = true;
+                                                                        break;
+                                                                    case "2":
+                                                                        next = true;
+                                                                        break;
+                                                                    case "3":
+                                                                        next = false;
+                                                                        break;
+                                                                    default:
+                                                                        next = true;
+                                                                        break;
+                                                                }
+                                                            } while (next);
+                                                            break;
+                                                        case "2":
+                                                            do {
+                                                                System.out.println("1. Listar bocadillos disponibles");
+                                                                System.out.println("2. Ver curiosidades de un bocadillo");
+                                                                System.out.println("3. Volver al menu princiapal");
+                                                                elec = sc.nextLine();
+
+                                                                switch (elec) {
+                                                                    case "1":
+                                                                        next = true;
+                                                                        break;
+                                                                    case "2":
+                                                                        next = true;
+                                                                        break;
+                                                                    case "3":
+                                                                        next = false;
+                                                                        break;
+                                                                    default:
+                                                                        next = true;
+                                                                        break;
+                                                                }
+                                                            } while (next);
+                                                        case "3":
+                                                            do {
+                                                                System.out.println("1. Seleccionar usuario");
+                                                                System.out.println("2. Elegir bocadillo");
+                                                                System.out.println("3. Confirmar pedido");
+                                                                System.out.println("4. Volver al menu princiapal");
+                                                                elec = sc.nextLine();
+
+                                                                switch (elec) {
+                                                                    case "1":
+
+                                                                    case "2":
+
+                                                                    case "3":
+
+                                                                    case "4":
+                                                                        next = false;
+                                                                        break;
+                                                                }
+                                                                next = true;
+                                                            } while (next);
+                                                        case "4":
+                                                            do {
+                                                                System.out.println("1. Mostrar pedidos de un usuario");
+                                                                System.out.println("2. Marcar pedidos como retirado");
+                                                                System.out.println("3. Volver al menu princiapal");
+                                                                elec = sc.nextLine();
+
+                                                                switch (elec) {
+                                                                    case "1":
+
+                                                                    case "2":
+
+                                                                    case "3":
+                                                                        next = false;
+                                                                        break;
+                                                                }
+                                                                next = true;
+                                                            } while (next);
+                                                        case "5":
+                                                            next = false;
+                                                            break;
+                                                        default:
+                                                            System.out.println("Tienes que seleccionar una opción");
+                                                            next = true;
+                                                            break;
                                                     }
-                                                }
-                                                next = false;
+
+                                                } while (next);
                                                 break;
                                             } else {
+                                                System.out.println("Contraseña incorrecta");
                                                 next = true;
-                                                System.out.println("Tienes que seleccionar uno");
+                                                //Si falla tres veces block pasa a true y si quieres que se convierta en false, tiene
+                                                //que hacer la pregusta.
+                                                if (i == 2){
+                                                    block = true;
+                                                    next = false;
+                                                    break;
+                                                }
+                                            }
+                                        } else {
+                                            System.out.println("El nombre de usuario no es el mismo");
+                                            next = true;
+                                            //Si falla tres veces block pasa a true y si quieres que se convierta en false, tiene
+                                            //que hacer la pregusta.
+                                            if (i == 2){
+                                                System.out.println("Usuario bloqueado");
+                                                block = true;
+                                                next = false;
+                                                break;
                                             }
                                         }
-                                    } else {
-                                        System.out.println("No te has logueado");
-                                        usuario = "";
-                                        break;
                                     }
-                                }while (next);
-                            case "3":
-
-                            case"4":
+                                }
+                            } else {
+                                System.out.println("Se cancelo el registro");
                                 next = false;
-                                break;
+                            }
                         }
-                        next = true;
-                    }while (next);
-            }
-            next = true;
+                    } while (next);
+                    next = true;
+                    break;
+                case "3":
+                    //RECUPERACIÓN CONTRASEÑA
 
-        } while (next);
+                    //Comprueba si te has registrado
+                    if (nameUser.length() <= 4 || contrasena.length() <= 7) {
+                        System.out.println("Tienes que registrarte");
+                    } else {
+                        if (Validaciones.captcha()) {
+                            compContrasena = Validaciones.recuperacionContrasena(pregunta, respuesta);
+                            //Comprueba que el cambio de contraseña haya sido un exito, si no es el caso, esta funcion te devuelve nada,
+                            //haciendo que contrasena no cambie, porque compContrasena no tiene ningun caracter
+                            if (compContrasena.length() < 8) {
+                                System.out.println("No se a podido cambiar la contraseña");
+                            } else {
+                                contrasena = compContrasena;
+                            }
+                        } else {
+                            System.out.println("captcha no valido");
+                        }
+                    }
+                    next = true;
+                    break;
+                case "4":
+                    //GESTION DE BLOQUEO
+
+                    //Comprueba si te has registrado
+                    if (nameUser.length() <= 4 || contrasena.length() <= 7) {
+                        System.out.println("Tienes que loguearte");
+                    } else {
+                        if (Validaciones.captcha()){
+                            System.out.println(pregunta);
+                            for (int i = 0; i < 3; i++) {
+                                respuestaPre = sc.nextLine();
+                                //Comprueba si respuestaPre es igual a respuesta
+                                if (respuestaPre.equals(respuesta)) {
+                                    System.out.println("Se te a desbloqueado el usuario");
+                                    block = false;
+                                    break;
+                                    //Si lo intento tres veces le saca del bucle, sin desbloquear al usuario
+                                } else  if (i == 2){
+                                    System.out.println("Los intentos se han agotado");
+                                    break;
+                                } else {
+                                    System.out.println("vuelve a intenatrlo");
+                                }
+                            }
+                        } else {
+                            System.out.println("Captcha no aceptado");
+                        }
+                    }
+                    next = true;
+                    break;
+                case "0":
+                    System.out.println("Adeu");
+                    next = false;
+                    break;
+                default:
+                    System.out.println("Elige una opción");
+                    next = true;
+                    break;
+            }
+        }while (next);
+
 
     }
 }

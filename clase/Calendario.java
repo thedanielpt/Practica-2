@@ -1,4 +1,4 @@
-package Practica3.clase;
+package Practica2.clase;
 
 import java.time.LocalDate;
 
@@ -8,11 +8,6 @@ public class Calendario {
     private LocalDate fecha_fin;
     private String Bocadillo_quincena_frios[];
     private String Bocadillo_quincena_calientes[];
-
-    public Calendario(String[] bocadillo_quincena_frio, String[] bocadillo_quincena_calietes) {
-        Bocadillo_quincena_frios = bocadillo_quincena_frio;
-        Bocadillo_quincena_calientes = bocadillo_quincena_calietes;
-    }
 
     public int getId() {
         return id;

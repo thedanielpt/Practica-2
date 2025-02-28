@@ -1,4 +1,4 @@
-package Practica3.clase;
+package Practica2.clase;
 
 public class Clase_bocatas {
     private int id;
