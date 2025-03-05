@@ -110,285 +110,98 @@ public class ServiciosUsers {
         return contrasenaNueva;
     }
 
-    //CAPTCHA
-
     /**
-     * El captcha esta hecho para sumar dos numeros creados por Math.random
-     * @return boolean Si el usuario no hacierta la suma que se genera, pondra falso, caso contrario sera verdadero
-     */
-    public static boolean captcha () {
-        Scanner scan = new Scanner(System.in);
-        int num2 = (int) (Math.random() * 10);
-        int num1 = (int) (Math.random() * 10);
-        String respuesta;
-        int respuestaPreg;
-        int resultado;
-        System.out.println("Haz esta suma");
-        System.out.println(num1 + " + " + num2);
-        for (int i = 0; i < 3; i++) {
-            respuesta = scan.nextLine();
-            //Comprueba si solo son numeros
-            if (Validaciones.soloNum(respuesta)) {
-                respuestaPreg = Integer.parseInt(respuesta);
-                resultado = num1 + num2;
-                //Comprueba si la respuesta puesta es igual al resultado, haciendo de que te saque de la funcion con un true
-                if (respuestaPreg == resultado) {
-                    return true;
-                    //Si lo has intentado 3 veces te devuelve false
-                } else if (i == 2) {
-                    return false;
-                } else {
-                    System.out.println("Vuelve a intentarlo");
-                }
-            } else {
-                System.out.println("Vuelve a intenarlo");
-            }
-        }
-        return false;
-    }
-
-    //NOMBRE Y APELLIDOS
-
-    /**
-     * Este método lo que hace es devolver el nombre y apellido del usuario
-     * @return String Devuelve el nombre y el apellido
+     * Sirve para que los usuarios se logueen con su usuario
+     * @param nameUser
+     * @param contrasena
+     * @param block
+     * @return devuelve true si se han logueado y false si no se han logueado
      */
 
-    public static String nombreApellidos(){
-
+    public static boolean login(String nameUser, String contrasena, boolean block){
         Scanner sc = new Scanner(System.in);
+        boolean next = true;
+        String nameL = "";
+        String contraL = "";
 
-        String nombre = "";
-        String apellido1 = "";
-        String apellido2 = "";
-
-        do {
-            System.out.println("Introduce el nombre");
-            nombre = sc.nextLine();
-        }while (!Validaciones.validarAlfabetoLat(nombre));
-
-        do {
-            System.out.println("Introduce el primer apellido: ");
-            apellido1 = sc.nextLine();
-        }while (!Validaciones.validarAlfabetoLat(apellido1));
-
-        do {
-            System.out.println("Introduce el segundo apellido: ");
-            apellido2 = sc.nextLine();
-        }while (!Validaciones.validarAlfabetoLat(apellido2));
-
-        String nombreApellidos = nombre + " " + apellido1 + " " + apellido2;
-
-        return nombreApellidos;
-    }
-    //NOMBRE DE USUARIO
-
-
-    /**
-     * Valida el nombre de usuario
-     * @return nameUser Contiene el nombre de usuario
-     */
-
-    public static String validarUsuario() {
-        Scanner scan = new Scanner(System.in);
-        String nameUser;
-        boolean next;
-        // Creación de nombre de usuario
-        do {
-            System.out.println("Pon el nombre de usuario que quieras, pero con estas restricciones:");
-            System.out.println("- No puede tener menos de 5 letras");
-            System.out.println("- No puede tener caracteres especiales");
-            nameUser = scan.nextLine();
-            /*Valida si hay espacios, si hay caracteres especiales y si mide menos de 5 caracteres
-            Si no cumple saldras del bucle  */
-            if (nameUser.length() < 5 || Validaciones.hayEspacio(nameUser) || Validaciones.hayEspecial(nameUser)) {
-                System.out.println("Usuario no valido");
+        if (Validaciones.captcha()){
+            //Si a fallado el login la variable block pasa de false a true
+            if (block) {
+                System.out.println("Lo siento esta cuenta esta bloqueada");
                 next = true;
-            } else next = false;
-
-
-        } while (next);
-        return nameUser;
-    }
-
-    //GMAIL
-
-    /**
-     * valida el gmail
-     * @return gmail Contiene el gmail del usuario
-     */
-    public static String validarGmail(){
-        Scanner scan = new Scanner(System.in);
-        boolean next;
-        String gmail;
-        do {
-            System.out.println("Ahora pon tu correo electronico");
-            gmail = scan.nextLine();
-            //Comprueba si tienes mas de un arroba
-            if (Validaciones.siTieneMasArroba(gmail)){
-                System.out.println("Tiene que tener solo un arroba y un punto");
-                next = true;
+                return false;
             } else {
-                //Comprueba si gmail tiene caracteres especiales que no se perimiten en el gmail
-                if (Validaciones.espeGmail(gmail)){
-                    System.out.println("no puede tener caracteres especiales");
-                    next = true;
-                } else {
-                    //Comprueba si hay espacios
-                    if (Validaciones.hayEspacio(gmail)){
-                        System.out.println("No puede tener espacios");
-                        next = true;
-                    } else {
-                        /*
-                        Comprueba aquí que tengas caracteres antes del arroba, que el ultimo punto que pongas no este detras
-                        del arroba, que en medio del punto y arroba alla un caracter y que el punto tenga delante un caracter
-                         */
-                        if (Validaciones.noDelanteArrobPunto(gmail)){
-                            System.out.println("Tiene que tener el arroba delante del punto y con algo en medio");
-                            System.out.println("No has puesto delante del punto nada o detras del arroba");
-                            next = true;
+                for (int i = 0; i < 4; i++) {
+                    System.out.println("Pon el nombre de usuario");
+                    nameL = sc.nextLine();
+                    //Comprueba si nameL es igual a nameUser
+                    if (nameL.equals(nameUser)) {
+                        System.out.println("Pon la contraseña");
+                        contraL = sc.nextLine();
+                        //Comprueba si contraL es igual a contrasena
+                        if (contraL.equals(contrasena)) {
+                            System.out.println(" Te has logueado");
+                            return true;
                         } else {
-                            System.out.println("Este es tu gmail " + gmail);
-                            next = false;
+                            System.out.println("Contraseña incorrecta");
+                            next = true;
+                            //Si falla tres veces block pasa a true y si quieres que se convierta en false, tiene
+                            //que hacer la pregusta.
+                            if (i == 2) {
+                                return false;
+                            }
+                        }
+                    } else {
+                        System.out.println("El nombre de usuario no es el mismo");
+                        next = true;
+                        //Si falla tres veces block pasa a true y si quieres que se convierta en false, tiene
+                        //que hacer la pregusta.
+                        if (i == 2) {
+                            System.out.println("Usuario bloqueado");
+                            return false;
                         }
                     }
                 }
             }
-        } while (next);
-        return gmail;
+        } else {
+            System.out.println("Se cancelo el registro");
+            next = false;
+        }
+        return false;
     }
 
-    //CONTRASEÑA
-
     /**
-     * Valida la contraseña
-     * @return contrasena Contiene la contraseña del usuario
-     */
-    public static String validarContrasena() {
-        String contrasena;
-        Scanner scan = new Scanner(System.in);
-        String compContrasena;
-        boolean next = true;
-        do {
-            System.out.println("Pon la contraseña que quieras, pero con estas caracteristicas:");
-            System.out.println("- Minimo tiene que tener un caracter especial");
-            System.out.println("- Minimo tiene que tener ocho letras");
-            System.out.println("- Minimo tiene que tener una letra mayuscula");
-            System.out.println("- Minimo tiene que tener una letra miniscula");
-            System.out.println("- Minimo tiene que tener un numero");
-            contrasena = scan.nextLine();
-            //Comprueba si contrasena tiene caracteres especiales, si mide mas de 8 caracteres, si hay mayusculas, si hay minusculas y
-            //si hay numeros.
-            //Si no tiene alguno de estas caracteristicas, se repite el bucle
-            if (Validaciones.hayEspecial(contrasena) && contrasena.length() >= 8 && Validaciones.hayMayus(contrasena)
-                    && Validaciones.hayMinus(contrasena) && Validaciones.hayNum(contrasena)) {
-                System.out.println("Ponme otra vez la contraseña que has escrito");
-                for (int i = 0; i < 3; i++) {
-                    compContrasena = scan.nextLine();
-                    if (compContrasena.equals(contrasena)) {
-                        next = false;
-                        break;
-                    } else {
-                        System.out.println("vuelve a intentarlo");
-                    }
-                }
-            } else {
-                System.out.println("Contraseña incorrecta");
-                next = true;
-            }
-        } while (next);
-        return contrasena;
-    }
-
-    //Fecha
-
-    /**
-     * Este metodo devuelve la fecha del usuario que se halla
-     * @return Fecha de usuario
+     * Sirve para desbloquear a un usuario
+     * @param pregunta
+     * @param respuesta
+     * @param block
+     * @return te devuelve true si has contestado bien o false si no lo intentas demasiadas veces
      */
 
-    public static LocalDate validarFecha(){
+    public static boolean gestionBloqueo(String pregunta, String respuesta, boolean block){
         Scanner sc = new Scanner(System.in);
-        LocalDate fecha = null;
-        LocalDate hoy = LocalDate.now();
-        int anoActual = hoy.getYear();
+        String respuestaPre = "";
 
-        String selec = "";
-        int anoU = 0;
-        int mesU = 0;
-        int diaU = 0;
-        boolean next = true;
-        //AÑO
-
-        do {
-            System.out.println("Pon tu año de nacimiento");
-            selec = sc.nextLine();
-
-            if (Validaciones.soloNum(selec)){
-                anoU = Integer.parseInt(selec);
-                if (anoU < 1950 || anoU > anoActual) {
-                    System.out.println("Año no valido");
-                    next = true;
-                } else {
-                    System.out.println("Tu año es = "+anoU);
-                    next = false;
-                }
-            } else {
-                System.out.println("Tiene que ser solo números");
-                next = true;
-            }
-        } while (next);
-
-        //MES
-
-        do {
-            System.out.println("Pon tu mes de nacimiento");
-            selec = sc.nextLine();
-
-            if (Validaciones.soloNum(selec)){
-                mesU = Integer.parseInt(selec);
-                if (mesU < 1 || 12 < mesU ) {
-                    System.out.println("mes no valido");
-                    next = true;
-                } else {
-                    System.out.println("Tu mes es = "+mesU);
-                    next = false;
-                }
-            } else {
-                System.out.println("Tiene que ser solo números");
-                next = true;
-            }
-        } while (next);
-
-        //Esto sirve para saber la longitud del mes.
-        //Primero ponemos los valores del año y el mes en fecha
-        fecha = LocalDate.of(anoU,mesU,1);
-
-        //Ahora se le pide que diga la longitud del mes
-        int longitudMesActual = fecha.lengthOfMonth();
-
-        //DÍA
-
-        do {
-            System.out.println("Pon tu día de nacimiento");
-            selec = sc.nextLine();
-
-            if (Validaciones.soloNum(selec)){
-                diaU = Integer.parseInt(selec);
-                if (diaU < 1 || diaU > longitudMesActual) {
-                    System.out.println("Día no valido");
-                    next = true;
-                } else {
-                    System.out.println("Tu día es = "+diaU);
-                    next = false;
-                }
-            } else {
-                System.out.println("Tiene que ser solo números");
-                next = true;
-            }
-        } while (next);
-        fecha = LocalDate.of(anoU, mesU,diaU);
-        System.out.println(fecha);
-        return fecha;
+        //Comprueba si te has registrado
+           if (Validaciones.captcha()){
+               System.out.println(pregunta);
+               for (int i = 0; i < 3; i++) {
+                   respuestaPre = sc.nextLine();
+                   //Comprueba si respuestaPre es igual a respuesta
+                   if (respuestaPre.equals(respuesta)) {
+                       System.out.println("Se te a desbloqueado el usuario");
+                       return true;
+                       //Si lo intento tres veces le saca del bucle, sin desbloquear al usuario
+                   } else  if (i == 2){
+                       System.out.println("Los intentos se han agotado");
+                       return false;
+                   } else {
+                       System.out.println("vuelve a intenatrlo");
+                   }
+               }
+           } else {
+               System.out.println("Captcha no aceptado");
+           }
+        return false;
     }
 }
