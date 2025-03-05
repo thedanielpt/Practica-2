@@ -3,14 +3,14 @@ import java.util.ArrayList;
 
 import java.time.LocalDate;
 
-public class Clase_pedidos {
+public class Pedidos {
     private int id_pedido;
     private String id_usuario;
     private int id_bocadillo;
     private LocalDate fecha;
     private String estado;
 
-    public Clase_pedidos(int id_pedido, String id_usuario, int id_bocadillo, LocalDate fecha, String estado) {
+    public Pedidos(int id_pedido, String id_usuario, int id_bocadillo, LocalDate fecha, String estado) {
         this.id_pedido = id_pedido;
         this.id_usuario = id_usuario;
         this.id_bocadillo = id_bocadillo;

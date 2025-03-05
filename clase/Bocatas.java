@@ -1,6 +1,6 @@
 package Practica2.clase;
 
-public class Clase_bocatas {
+public class Bocatas {
     private int id;
     private String nombre;
     private String descrip;
@@ -10,7 +10,7 @@ public class Clase_bocatas {
     private double precio;
     private boolean caliente;
 
-    public Clase_bocatas (int id,String nombre, String descrip, String [] ingredientes, String[] alergenos, String ciudadpopular, double precio, boolean caliente){
+    public Bocatas (int id,String nombre, String descrip, String [] ingredientes, String[] alergenos, String ciudadpopular, double precio, boolean caliente){
         this.id=id;
         this.nombre=nombre;
         this.descrip=descrip;

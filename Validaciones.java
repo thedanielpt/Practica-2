@@ -1,9 +1,9 @@
 package Practica2;
 
 import Practica2.clase.Calendario;
-import Practica2.clase.Clase_bocatas;
-import Practica2.clase.Clase_pedidos;
-import Practica2.clase.Clase_user;
+import Practica2.clase.Bocatas;
+import Practica2.clase.Pedidos;
+import Practica2.clase.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

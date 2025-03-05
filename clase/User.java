@@ -4,7 +4,7 @@ import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Clase_user {
+public class User {
     private String usuario;
     private String nombre;
     private String correo;
@@ -15,7 +15,7 @@ public class Clase_user {
     private LocalDate fecha_nacimiento;
     private int rol;
 
-    public Clase_user(String usuario, String nombre, String curso, String correo, String password, boolean alergico, LocalDate fecha_nacimiento, int rol) {
+    public User(String usuario, String nombre, String curso, String correo, String password, boolean alergico, LocalDate fecha_nacimiento, int rol) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.curso = curso;
@@ -26,7 +26,7 @@ public class Clase_user {
         this.rol = rol;
     }
 
-    public Clase_user(String usuario, String nombre, String correo, String curso, String password, boolean alergico, String[] alergias, LocalDate fecha_nacimiento, int rol) {
+    public User(String usuario, String nombre, String correo, String curso, String password, boolean alergico, String[] alergias, LocalDate fecha_nacimiento, int rol) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.correo = correo;
