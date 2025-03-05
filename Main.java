@@ -22,11 +22,7 @@ public class Main {
         //REGISTRO
 
         //NOMBRE
-        String name = "";
-
-        //APELLIDOS
-        String apellido1 = "";
-        String apellido2 = "";
+        String nombre = "";
 
         //Nombre Usuario
         String nameUser = "";
@@ -90,7 +86,7 @@ public class Main {
                     // REGISTRO
 
                     //CAPTCHA
-                    if (Validaciones.captcha()){
+                    if (ServiciosUsers.captcha()){
                         System.out.println("captch completado");
                     } else {
                         System.out.println("Se cancelo el registro");
@@ -101,38 +97,24 @@ public class Main {
                     // Creación de nombre
 
                     //Pasas si validarAlfabetoLat es falso
-                    do {
-                        System.out.println("INTRODUCD EL NOMBRE ");
-                        name = sc.nextLine();
-                    }while (!Validaciones.validarAlfabetoLat(name));
 
-                    //Pasas si validarAlfabetoLat es falso
-                    do {
-                        System.out.println("Introduce el primer apellido: ");
-                        apellido1= sc.nextLine();
-                    }while (!Validaciones.validarAlfabetoLat(apellido1));
-
-                    //Pasas si validarAlfabetoLat es falso
-                    do {
-                        System.out.println("Introduce el segundo apellido: ");
-                        apellido2= sc.nextLine();
-                    }while (!Validaciones.validarAlfabetoLat(apellido2));
+                    nombre = ServiciosUsers.nombreApellidos();
 
                     // Creación de nombre de usuario
 
-                    nameUser = Validaciones.validarUsuario();
+                    nameUser = ServiciosUsers.validarUsuario();
 
                     //CREACIÓN DE FECHA
 
-                    fecha = Validaciones.validarFecha();
+                    fecha = ServiciosUsers.validarFecha();
 
                     //CREACION DE CONTRASEÑA
 
-                    contrasena = Validaciones.validarContrasena();
+                    contrasena = ServiciosUsers.validarContrasena();
 
                     //CREAR CORREO
 
-                    gmail = Validaciones.validarGmail();
+                    gmail = ServiciosUsers.validarGmail();
 
                     //PREGUNTA IMPORTANTE
 
@@ -193,7 +175,7 @@ public class Main {
                             System.out.println("Tienes que registrarte");
                             next = false;
                         } else {
-                            if (Validaciones.captcha()){
+                            if (ServiciosUsers.captcha()){
                                 //Si a fallado el login la variable block pasa de false a true
                                 if (block) {
                                     System.out.println("Lo siento esta cuenta esta bloqueada");
@@ -365,8 +347,8 @@ public class Main {
                     if (nameUser.length() <= 4 || contrasena.length() <= 7) {
                         System.out.println("Tienes que registrarte");
                     } else {
-                        if (Validaciones.captcha()) {
-                            compContrasena = Validaciones.recuperacionContrasena(pregunta, respuesta);
+                        if (ServiciosUsers.captcha()) {
+                            compContrasena = ServiciosUsers.recuperacionContrasena(pregunta, respuesta);
                             //Comprueba que el cambio de contraseña haya sido un exito, si no es el caso, esta funcion te devuelve nada,
                             //haciendo que contrasena no cambie, porque compContrasena no tiene ningun caracter
                             if (compContrasena.length() < 8) {
@@ -387,7 +369,7 @@ public class Main {
                     if (nameUser.length() <= 4 || contrasena.length() <= 7) {
                         System.out.println("Tienes que loguearte");
                     } else {
-                        if (Validaciones.captcha()){
+                        if (ServiciosUsers.captcha()){
                             System.out.println(pregunta);
                             for (int i = 0; i < 3; i++) {
                                 respuestaPre = sc.nextLine();
