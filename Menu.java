@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Menu {
 
+    //ADMIN
+
     /**
      *Metodo donde esta el menu Admin
      */
@@ -181,6 +183,8 @@ public class Menu {
         } while (next);
     }
 
+    //USUARIO
+
     /**
      * Metodo donde esta el menu de Usuario
      */
@@ -232,27 +236,72 @@ public class Menu {
      * Metodo para pedir un bocata
      */
     public void usuarioPedirBocata(){
-
+        //TODO: usuario pide bocata
     }
 
     /**
      * Metodo para ver el horario de los bocatas
      */
     public void usuarioHorarioBocata(){
-
+        //TODO: usuario mira horario
     }
 
     /**
      * Metodo para cancelar el bocata
      */
     public void usuarioCancelarBocata(){
-
+        //TODO: usuario cancela bocata
     }
 
     /**
      * Metodo para ver el historial de pedidos
      */
     public void usuarioHistorialPedidos(){
-
+        //TODO: usuario mira su historial de pedidos
     }
+
+    //COCINA
+
+    /**
+     * Este metodo muestra el menu de cocina
+     */
+
+    public void menuCocina(){
+        Scanner sc = new Scanner(System.in);
+        boolean next = true;
+        String elec = "";
+
+        System.out.println("----MENU COCINA----");
+        System.out.println("1. Modificar estado");
+        System.out.println("2. Ver pedidos");
+        System.out.println("3. Deslogueo");
+        elec = sc.nextLine();
+
+        switch (elec) {
+            case "1":
+                cocinaModificarestado();
+                next = true;
+                break;
+            case "2":
+                cocinaVerPedidos();
+                next = true;
+                break;
+            case "3":
+                next = false;
+                break;
+            default:
+                System.out.println("seleccona una opción");
+                next = true;
+                break;
+        }
+    }
+
+    public void cocinaModificarestado(){
+        //TODO: cocina podra modificar el estado de los pedidos
+    }
+
+    public void cocinaVerPedidos(){
+        //TODO: cocina podra mirar los pedidos
+    }
+
 }
