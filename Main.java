@@ -1,6 +1,7 @@
 package Practica2;
 
 import Practica2.clase.Bocatas;
+import Practica2.clase.Pedidos;
 import Practica2.clase.User;
 
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Main {
 
     private static User[] usuarios = new User[10];
     private static Bocatas[] bocatas = new Bocatas[10];
+    private static Pedidos[] pedidos = new Pedidos[5];
 
     /**
      * Metodo donde se instancian los usuarios
@@ -55,6 +57,16 @@ public class Main {
         bocatas[7] = new Bocatas(7, "Bocadillo de tortilla con aguacate", "La combinación perfecta para los veganos", ingredientes, alergias, "Orihuela", 4.3, false);
         bocatas[8] = new Bocatas(8, "Bocadillo de tortilla con salchichón", "El clásico con un toque de sabor", ingredientes, alergias, "Elx", 4.1, true);
         bocatas[9] = new Bocatas(9, "Bocadillo de tortilla con espinacas", "Una opción saludable y deliciosa", ingredientes, alergias, "Torrevieja", 4.0, false);
+    }
+
+    //Metodo donde se instancia los pedidos
+
+    public static void cargarPedidos(){
+        pedidos[0] = new Pedidos(0, "Daniel", 0, LocalDate.now(), "Pendiente");
+        pedidos[1] = new Pedidos(1, "Maria", 1, LocalDate.now().minusDays(1), "Entregado");
+        pedidos[2] = new Pedidos(2, "Ana", 2, LocalDate.now().plusDays(2), "En proceso");
+        pedidos[3] = new Pedidos(3, "Hugo", 3, LocalDate.now(), "Cancelado");
+        pedidos[4] = new Pedidos(4, "Laura", 4, LocalDate.now().minusDays(3), "Pendiente");
     }
 
     /**
