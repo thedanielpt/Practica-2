@@ -59,7 +59,6 @@ public class User {
             System.out.println("\n----------------");
         }
 
-
     }
 
     public String getNombre() {

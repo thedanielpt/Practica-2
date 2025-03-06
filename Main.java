@@ -1,5 +1,8 @@
 package Practica2;
 
+import Practica2.clase.Bocatas;
+import Practica2.clase.User;
+
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -13,19 +16,63 @@ import java.util.Scanner;
 
 public class Main {
 
+    // Array de usuarios y bocatas
+
+    private static User[] usuarios = new User[10];
+    private static Bocatas[] bocatas = new Bocatas[10];
+
+    /**
+     * Metodo donde se instancian los usuarios
+     */
+    public static void cargarUsuaios(){
+        String[] alergias = {"Frutos secos", "Polen"};
+
+        usuarios[0] = new User("Daniel", "Daniel Pamies Teruel", "1º ESO", "danielpameisteruel@gmail.com", "Daniel_1", false, LocalDate.of(2006, 3, 29), 0);
+        usuarios[1] = new User("Javi", "Javi solemne malo", "2ºESO", "javisolemnemalo2gmail.com", "Javi_123", true, alergias ,LocalDate.of(2000, 05, 23), 0);
+        usuarios[2] = new User("Lucia", "Lucia buena mala", "2ºESO", "luciabuenamala@gmail.com", "Lucia_12", false, LocalDate.of(2006,12,29), 0);
+        usuarios[3] = new User("Carlos", "Carlos el grande", "2ºESO", "carlosgrande@gmail.com", "Carlos_34", true, alergias , LocalDate.of(2005, 3, 15), 0);
+        usuarios[4] = new User("Ana", "Ana la sabia", "3ºESO", "analasabia@gmail.com", "Ana_45", false, LocalDate.of(2007, 7, 25), 0);
+        usuarios[5] = new User("Pedro", "Pedro el valiente", "4ºESO", "pedrovaliente@gmail.com", "Pedro_78", true, alergias,LocalDate.of(2006, 11, 10), 0);
+        usuarios[6] = new User("María", "María la rápida", "2ºESO", "marialarapida@gmail.com", "Maria_56", false, LocalDate.of(2006, 5, 3), 0);
+        usuarios[7] = new User("Evaristo", "Evaristo el roñzas", "2ºESO", "evaristoelroñas@gmail.com", "Evaristo_1", false, LocalDate.of(1980, 05, 17), 0);
+        usuarios[8] = new User("Hugo", "Hugo el deportista", "4ºBach", "hugodeporte@gmail.com", "Hugo_22", false, LocalDate.of(2004, 6, 17), 0);
+        usuarios[9] = new User("Laura", "Laura la estudiosa", "2ºESO", "lauraestudios@gmail.com", "Laura_55", false, LocalDate.of(2007, 10, 11), 0);
+    }
+
+    //Metodo donde se instancian los bocatas
+
+    public static void cargarBocatas(){
+        String[] ingredientes = {"Tortilla, aceite"};
+        String [] alergias = {"Gluten"};
+
+        bocatas[0] = new Bocatas(0, "Bocadillo de tortilla", "Está hecho para la gente que quiere ser feliz", ingredientes, alergias, "Callosa", 3.5, false);
+        bocatas[1] = new Bocatas(1, "Bocadillo de tortilla con jamón", "Perfecto para un almuerzo rápido", ingredientes, alergias, "Alcoy", 4.0, true);
+        bocatas[2] = new Bocatas(2, "Bocadillo de tortilla con queso", "Ideal para los amantes del queso", ingredientes, alergias, "Elche", 4.2, false);
+        bocatas[3] = new Bocatas(3, "Bocadillo de tortilla con atún", "Para los que prefieren el mar", ingredientes, alergias, "Alicante", 4.5, true);
+        bocatas[4] = new Bocatas(4, "Bocadillo de tortilla con pimiento", "Una opción más vegetal", ingredientes, alergias, "Benidorm", 3.8, false);
+        bocatas[5] = new Bocatas(5, "Bocadillo de tortilla con tomate", "Fresco y delicioso", ingredientes, alergias, "Altea", 4.0, false);
+        bocatas[6] = new Bocatas(6, "Bocadillo de tortilla con chistorra", "Para los amantes de los sabores fuertes", ingredientes, alergias, "Castellón", 5.0, true);
+        bocatas[7] = new Bocatas(7, "Bocadillo de tortilla con aguacate", "La combinación perfecta para los veganos", ingredientes, alergias, "Orihuela", 4.3, false);
+        bocatas[8] = new Bocatas(8, "Bocadillo de tortilla con salchichón", "El clásico con un toque de sabor", ingredientes, alergias, "Elx", 4.1, true);
+        bocatas[9] = new Bocatas(9, "Bocadillo de tortilla con espinacas", "Una opción saludable y deliciosa", ingredientes, alergias, "Torrevieja", 4.0, false);
+    }
+
     /**
      * Aqui es donde empiezan a ejeturse el codigo con las funciones creadas y explicadas anteriormente
      */
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
+
+        cargarUsuaios();
         //REGISTRO
 
         //NOMBRE
         String nombre = "";
 
         //Nombre Usuario
-        String nameUser = "";
+        String nameUser = "Daniel";
 
         //Fecha
         String medirFecha = "";
@@ -33,7 +80,7 @@ public class Main {
         int edad = 0;
 
         //Contraseña
-        String contrasena = "";
+        String contrasena = "Daniel_1";
         String compContrasena = "";
         String contrasenaNueva = "";
         String contrasenaguardada = "";
@@ -170,7 +217,7 @@ public class Main {
                 case "2":
                     //LOGIN
                     if (ServiciosUsers.login(nameUser, contrasena, block)) {
-                        Menu.menuPrincipal();
+
                     } else {
                         block = true;
                         next = true;
