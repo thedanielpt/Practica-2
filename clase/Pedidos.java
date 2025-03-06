@@ -1,5 +1,4 @@
 package Practica2.clase;
-import java.util.ArrayList;
 
 import java.time.LocalDate;
 

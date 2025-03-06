@@ -1,10 +1,10 @@
 package Practica2;
 
 import Practica2.clase.Bocatas;
+import Practica2.clase.Calendario;
 import Practica2.clase.Pedidos;
 import Practica2.clase.User;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -22,6 +22,7 @@ public class Main {
     private static User[] usuarios = new User[10];
     private static Bocatas[] bocatas = new Bocatas[10];
     private static Pedidos[] pedidos = new Pedidos[5];
+    private static Calendario[] calendarios = new Calendario[5];
 
     /**
      * Metodo donde se instancian los usuarios
@@ -52,11 +53,11 @@ public class Main {
         bocatas[2] = new Bocatas(2, "Bocadillo de tortilla con queso", "Ideal para los amantes del queso", ingredientes, alergias, "Elche", 4.2, false);
         bocatas[3] = new Bocatas(3, "Bocadillo de tortilla con atún", "Para los que prefieren el mar", ingredientes, alergias, "Alicante", 4.5, true);
         bocatas[4] = new Bocatas(4, "Bocadillo de tortilla con pimiento", "Una opción más vegetal", ingredientes, alergias, "Benidorm", 3.8, false);
-        bocatas[5] = new Bocatas(5, "Bocadillo de tortilla con tomate", "Fresco y delicioso", ingredientes, alergias, "Altea", 4.0, false);
-        bocatas[6] = new Bocatas(6, "Bocadillo de tortilla con chistorra", "Para los amantes de los sabores fuertes", ingredientes, alergias, "Castellón", 5.0, true);
-        bocatas[7] = new Bocatas(7, "Bocadillo de tortilla con aguacate", "La combinación perfecta para los veganos", ingredientes, alergias, "Orihuela", 4.3, false);
-        bocatas[8] = new Bocatas(8, "Bocadillo de tortilla con salchichón", "El clásico con un toque de sabor", ingredientes, alergias, "Elx", 4.1, true);
-        bocatas[9] = new Bocatas(9, "Bocadillo de tortilla con espinacas", "Una opción saludable y deliciosa", ingredientes, alergias, "Torrevieja", 4.0, false);
+        bocatas[5] = new Bocatas(5, "Bocadillo de tortilla con tomate", "Fresco y delicioso", ingredientes, alergias, "Altea", 4.0, true);
+        bocatas[6] = new Bocatas(6, "Bocadillo de tortilla con chistorra", "Para los amantes de los sabores fuertes", ingredientes, alergias, "Castellón", 5.0, false);
+        bocatas[7] = new Bocatas(7, "Bocadillo de tortilla con aguacate", "La combinación perfecta para los veganos", ingredientes, alergias, "Orihuela", 4.3, true);
+        bocatas[8] = new Bocatas(8, "Bocadillo de tortilla con salchichón", "El clásico con un toque de sabor", ingredientes, alergias, "Elx", 4.1, false);
+        bocatas[9] = new Bocatas(9, "Bocadillo de tortilla con espinacas", "Una opción saludable y deliciosa", ingredientes, alergias, "Torrevieja", 4.0, true);
     }
 
     //Metodo donde se instancia los pedidos
@@ -67,6 +68,16 @@ public class Main {
         pedidos[2] = new Pedidos(2, "Ana", 2, LocalDate.now().plusDays(2), "En proceso");
         pedidos[3] = new Pedidos(3, "Hugo", 3, LocalDate.now(), "Cancelado");
         pedidos[4] = new Pedidos(4, "Laura", 4, LocalDate.now().minusDays(3), "Pendiente");
+    }
+
+    public static void cargarCalendario(){
+        String [] bocata_frio = {bocatas[0].getNombre(), bocatas[2].getNombre(), bocatas[4].getNombre(), bocatas[6].getNombre(), bocatas[8].getNombre()};
+        String [] bocata_caliente = {bocatas[1].getNombre(), bocatas[3].getNombre(),bocatas[5].getNombre(),bocatas[7].getNombre(), bocatas[9].getNombre()};
+        calendarios[0] = new Calendario(0, LocalDate.of(2025, 03,6), LocalDate.of(2025, 03,8), bocata_caliente, bocata_frio);
+        calendarios[1] = new Calendario(1, LocalDate.of(2025, 03,7), LocalDate.of(2025, 03,9), bocata_caliente, bocata_frio);
+        calendarios[2] = new Calendario(2, LocalDate.of(2025, 03,8), LocalDate.of(2025, 03,10), bocata_caliente, bocata_frio);
+        calendarios[3] = new Calendario(3, LocalDate.of(2025, 03,9), LocalDate.of(2025, 03,11), bocata_caliente, bocata_frio);
+        calendarios[4] = new Calendario(4, LocalDate.of(2025, 03,10), LocalDate.of(2025, 03,12), bocata_caliente, bocata_frio);
     }
 
     /**

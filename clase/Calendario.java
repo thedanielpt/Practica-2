@@ -9,6 +9,14 @@ public class Calendario {
     private String Bocadillo_quincena_frios[];
     private String Bocadillo_quincena_calientes[];
 
+    public Calendario(int id, LocalDate fecha_inicio, LocalDate fecha_fin, String[] bocadillo_quincena_frios, String[] bocadillo_quincena_calientes) {
+        this.id = id;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+        Bocadillo_quincena_frios = bocadillo_quincena_frios;
+        Bocadillo_quincena_calientes = bocadillo_quincena_calientes;
+    }
+
     public int getId() {
         return id;
     }
